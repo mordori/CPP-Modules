@@ -1,0 +1,9 @@
+.vscode/
+dep/
+obj/
+docs/
+*.o
+*.d
+megaphone
+phonebook
+account
