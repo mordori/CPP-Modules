@@ -1,62 +1,46 @@
+#include "input.h"
 #include "phonebook.h"
+
 #include <iostream>
 #include <string>
 #include <string_view>
-#include <limits>
 
-bool	clearFailedExtraction();
-void	ignoreLine();
-bool	hasUnextractedInput();
-void	executeCommand(std::string_view sv, PhoneBook& pb);
+void executeCommand(std::string_view cmd, PhoneBook& pb);
 
-int	main()
+int main()
 {
-	PhoneBook		pb{};
-	std::string		s{};
+	PhoneBook pb{};
+	std::string cmd{};
 
-	while (1)
+	clearTerminal();
+	std::cout << '\n' << "PHONEBOOK" << "\n\n";
+	while (true)
 	{
-		std::cout << "Enter a command [ADD, SEARCH, EXIT]" << "\n> ";
-		std::cin >> s;
-		if (clearFailedExtraction())
+		std::cout << "--- Enter a command ---" << '\n';
+		std::cout << "[ADD, SEARCH, EXIT]" << "\n\n> ";
+		std::cin >> cmd;
+		InputState state = validateExtractedInput();
+		if (state == InputState::IO_CLOSURE)
+			std::exit(0);
+		else if (state == InputState::SUCCESS)
 		{
-			std::cout << "asd\n";
-			continue;
+			ignoreUnextractedInput();
+			clearTerminal();
+			std::cout << '\n';
+			executeCommand(cmd, pb);
 		}
-		executeCommand(s, pb);
 	}
 	return 0;
 }
 
-bool	clearFailedExtraction()
+void executeCommand(std::string_view cmd, PhoneBook& pb)
 {
-	if (!std::cin)
-	{
-		if (std::cin.eof())
-			std::exit(0);
-		std::cin.clear();
-		ignoreLine();
-		return true;
-	}
-	return false;
-}
-
-void	ignoreLine()
-{
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-}
-
-bool	hasUnextractedInput()
-{
-	return !std::cin.eof() && std::cin.peek() != '\n';
-}
-
-void	executeCommand(std::string_view sv, PhoneBook& pb)
-{
-	if (sv == "ADD")
+	if(cmd == "ADD")
 		pb.addContact();
-	else if (sv == "SEARCH")
+	else if (cmd == "SEARCH")
 		pb.searchContact();
-	else if (sv == "EXIT")
+	else if (cmd == "EXIT")
 		std::exit(0);
+	else
+		std::cout << "Invalid command!" << "\n\n";
 }
