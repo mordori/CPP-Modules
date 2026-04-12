@@ -1,4 +1,4 @@
-#include "input.h"
+#include "io.h"
 #include "phonebook.h"
 
 #include <iostream>
@@ -17,14 +17,13 @@ int main()
 	while (true)
 	{
 		std::cout << "--- Enter a command ---" << '\n';
-		std::cout << "[ADD, SEARCH, EXIT]" << "\n\n> ";
-		std::cin >> cmd;
+		std::cout << "[ADD, SEARCH, EXIT]" << "\n\n";
+		extractInputTo(cmd, "> ");
 		InputState state = validateExtractedInput();
 		if (state == InputState::IO_CLOSURE)
 			std::exit(0);
 		else if (state == InputState::SUCCESS)
 		{
-			ignoreUnextractedInput();
 			clearTerminal();
 			std::cout << '\n';
 			executeCommand(cmd, pb);
@@ -35,7 +34,7 @@ int main()
 
 void executeCommand(std::string_view cmd, PhoneBook& pb)
 {
-	if(cmd == "ADD")
+	if (cmd == "ADD")
 		pb.addContact();
 	else if (cmd == "SEARCH")
 		pb.searchContact();

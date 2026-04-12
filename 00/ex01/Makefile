@@ -26,7 +26,7 @@ DIR_UTILS	:=utils/
 
 INCS		:=$(addprefix -I, $(DIR_INC) $(DIR_INC)$(DIR_UTILS))
 SRCS		:=$(addprefix $(DIR_SRC), phonebook.cpp contact.cpp main.cpp)
-SRCS		+=$(addprefix $(DIR_SRC)$(DIR_UTILS), input.cpp)
+SRCS		+=$(addprefix $(DIR_SRC)$(DIR_UTILS), io.cpp)
 OBJS		:=$(patsubst $(DIR_SRC)%.cpp, $(DIR_OBJ)%.o, $(SRCS))
 DEPS		:=$(patsubst $(DIR_OBJ)%.o, $(DIR_DEP)%.d, $(OBJS))
 

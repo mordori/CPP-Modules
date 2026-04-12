@@ -1,19 +1,33 @@
 #include "contact.h"
-#include "input.h"
+#include "io.h"
 
 #include <iostream>
 #include <iomanip>
 
-Contact::Contact() {}
+Contact::Contact()
+{}
 
-Contact::~Contact() {}
+Contact::Contact(std::string firstName,
+				std::string lastName,
+				std::string nickname,
+				std::string phoneNumber,
+				std::string darkestSecret) :
+	m_firstName{ std::move(firstName) },
+	m_lastName{ std::move(lastName) },
+	m_nickname{ std::move(nickname) },
+	m_phoneNumber{ std::move(phoneNumber) },
+	m_darkestSecret{ std::move(darkestSecret) }
+{}
+
+Contact::~Contact()
+{}
 
 Contact::Contact(const Contact& other) :
-	m_firstName(other.m_firstName),
-	m_lastName(other.m_lastName),
-	m_nickname(other.m_nickname),
-	m_phoneNumber(other.m_phoneNumber),
-	m_darkestSecret(other.m_darkestSecret)
+	m_firstName{ other.m_firstName },
+	m_lastName{ other.m_lastName },
+	m_nickname{ other.m_nickname },
+	m_phoneNumber{ other.m_phoneNumber },
+	m_darkestSecret{ other.m_darkestSecret }
 {}
 
 Contact& Contact::operator=(const Contact& other)
@@ -30,8 +44,8 @@ Contact& Contact::operator=(const Contact& other)
 
 std::ostream& operator<<(std::ostream& os, const Contact& contact)
 {
-	std::ios_base::fmtflags original = os.flags();
-	int w{18};
+	IosFlags flags{ os };
+	int w{ 18 };
 	os << std::left;
 	os
 		<< std::setw(w) << "First Name: " << contact.getFirstName() << '\n'
@@ -39,17 +53,7 @@ std::ostream& operator<<(std::ostream& os, const Contact& contact)
 		<< std::setw(w) << "Nickname: " << contact.getNickname() << '\n'
 		<< std::setw(w) << "Phone Number: " << contact.getPhoneNumber() << '\n'
 		<< std::setw(w) << "Darkest Secret: " << contact.getDarkestSecret() << '\n';
-	os.flags(original);
 	return os;
-}
-
-void Contact::initialize()
-{
-	extractInputTo(m_firstName, "First Name: ");
-	extractInputTo(m_lastName, "Last Name: ");
-	extractInputTo(m_nickname, "Nickname: ");
-	extractInputTo(m_phoneNumber, "Phone Number: ");
-	extractInputTo(m_darkestSecret, "Darkest Secret: ");
 }
 
 #pragma region Setters
