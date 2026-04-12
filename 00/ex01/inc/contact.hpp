@@ -13,15 +13,12 @@ private:
 	std::string m_darkestSecret{};
 
 public:
-	Contact();
+	Contact() = default;
 	Contact(std::string firstName,
 			std::string lastName,
 			std::string nickname,
 			std::string phoneNumber,
 			std::string darkestSecret);
-	~Contact();
-	Contact(const Contact& other);
-	Contact& operator=(const Contact& other);
 
 	void setFirstName(const std::string& firstName);
 	void setLastName(const std::string& lastName);

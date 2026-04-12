@@ -1,6 +1,6 @@
 #pragma once
 
-#include "contact.h"
+#include "contact.hpp"
 
 #include <cstddef>
 #include <string_view>
@@ -21,8 +21,7 @@ private:
 	void displayContactDetails(std::size_t index);
 
 public:
-	PhoneBook();
-	~PhoneBook();
+	PhoneBook() = default;
 	PhoneBook(const PhoneBook& other);
 	PhoneBook& operator=(const PhoneBook& other);
 

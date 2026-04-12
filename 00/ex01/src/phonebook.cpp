@@ -1,5 +1,5 @@
-#include "phonebook.h"
-#include "io.h"
+#include "phonebook.hpp"
+#include "io.hpp"
 
 #include <cstddef>
 #include <iostream>
@@ -7,14 +7,7 @@
 #include <optional>
 #include <string>
 
-PhoneBook::PhoneBook()
-{}
-
-PhoneBook::~PhoneBook()
-{}
-
 PhoneBook::PhoneBook(const PhoneBook& other) :
-	m_contacts{},
 	m_index{ other.m_index },
 	m_addedContacts{ other.m_addedContacts }
 {
@@ -65,7 +58,7 @@ void PhoneBook::searchContact()
 	std::cout << '\n';
 	std::size_t index = input.value();
 	if (index < 1)
-		std::cout << "Indexes are positive and start from 1." << "\n\n";
+		std::cout << "Indexes start from 1." << "\n\n";
 	else if (m_addedContacts == 0)
 		std::cout << "You have not added any contacts." << "\n\n";
 	else if (index > m_addedContacts)
@@ -101,6 +94,6 @@ void PhoneBook::displayField(std::string_view field, char delimiter)
 
 void PhoneBook::displayContactDetails(std::size_t index)
 {
-	std::cout << '\n' << "--- Contact Details ---" << "\n\n";
+	std::cout << "--- Contact Details ---" << "\n\n";
 	std::cout << m_contacts[index - 1] << '\n';
 }

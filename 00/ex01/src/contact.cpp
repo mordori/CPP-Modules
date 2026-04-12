@@ -1,11 +1,8 @@
-#include "contact.h"
-#include "io.h"
+#include "contact.hpp"
+#include "io.hpp"
 
 #include <iostream>
 #include <iomanip>
-
-Contact::Contact()
-{}
 
 Contact::Contact(std::string firstName,
 				std::string lastName,
@@ -18,29 +15,6 @@ Contact::Contact(std::string firstName,
 	m_phoneNumber{ std::move(phoneNumber) },
 	m_darkestSecret{ std::move(darkestSecret) }
 {}
-
-Contact::~Contact()
-{}
-
-Contact::Contact(const Contact& other) :
-	m_firstName{ other.m_firstName },
-	m_lastName{ other.m_lastName },
-	m_nickname{ other.m_nickname },
-	m_phoneNumber{ other.m_phoneNumber },
-	m_darkestSecret{ other.m_darkestSecret }
-{}
-
-Contact& Contact::operator=(const Contact& other)
-{
-	if (this == &other)
-		return *this;
-	m_firstName = other.m_firstName;
-	m_lastName = other.m_lastName;
-	m_nickname = other.m_nickname;
-	m_phoneNumber = other.m_phoneNumber;
-	m_darkestSecret = other.m_darkestSecret;
-	return *this;
-}
 
 std::ostream& operator<<(std::ostream& os, const Contact& contact)
 {
