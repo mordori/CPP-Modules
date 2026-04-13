@@ -1,4 +1,4 @@
-NAME		:=phonebook
+NAME		:=brain
 
 CXX			:=c++
 STD			:=-std=c++20
@@ -24,8 +24,8 @@ DIR_OBJ		:=obj/
 DIR_DEP		:=dep/
 DIR_UTILS	:=utils/
 
-SRC_FILES	:=phonebook.cpp contact.cpp main.cpp
-UTILS_FILES	:=io.cpp
+SRC_FILES	:=main.cpp
+UTILS_FILES	:=
 
 INCS		:=$(addprefix -I, $(DIR_INC) $(DIR_UTILS))
 SRCS		:=$(addprefix $(DIR_SRC), $(SRC_FILES)) \

@@ -22,10 +22,15 @@ DIR_SRC		:=src/
 DIR_LIB		:=lib/
 DIR_OBJ		:=obj/
 DIR_DEP		:=dep/
+DIR_UTILS	:=utils/
 
-INCS		:=$(addprefix -I, $(DIR_INC))
-SRCS		:=$(addprefix $(DIR_SRC), megaphone.cpp)
-OBJS		:=$(patsubst $(DIR_SRC)%.cpp, $(DIR_OBJ)%.o, $(SRCS))
+SRC_FILES	:=megaphone.cpp
+UTILS_FILES	:=
+
+INCS		:=$(addprefix -I, $(DIR_INC) $(DIR_UTILS))
+SRCS		:=$(addprefix $(DIR_SRC), $(SRC_FILES)) \
+				$(addprefix $(DIR_UTILS), $(UTILS_FILES))
+OBJS		:=$(addprefix $(DIR_OBJ), $(SRC_FILES:.cpp=.o) $(UTILS_FILES:.cpp=.o))
 DEPS		:=$(patsubst $(DIR_OBJ)%.o, $(DIR_DEP)%.d, $(OBJS))
 
 BLUE		:=\033[1;34m
@@ -39,20 +44,21 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@$(CXX) $(CXXFLAGS) -o $@ $(OBJS) $(LDFLAGS)
-	@$(call output)
+	$(call output)
 
 $(DIR_OBJ)%.o: $(DIR_SRC)%.cpp
-	@mkdir -p $(dir $@) $(patsubst $(DIR_OBJ)%, $(DIR_DEP)%, $(dir $@))
-	@$(CXX) $(CXXFLAGS) -c $< -o $@ -MMD -MP -MF $(patsubst $(DIR_OBJ)%.o, $(DIR_DEP)%.d, $@) $(INCS)
-	@echo "$(GREEN) [+]$(COLOR) compiling $@"
+	$(call compile_objs)
+
+$(DIR_OBJ)%.o: $(DIR_UTILS)%.cpp
+	$(call compile_objs)
 
 clean:
-	@$(call rm_dir,$(DIR_OBJ))
+	$(call rm_dir,$(DIR_OBJ))
 
 fclean: clean
-	@$(call rm_dir,$(DIR_LIB))
-	@$(call rm_dir,$(DIR_DEP))
-	@$(call rm_file,$(NAME))
+	$(call rm_dir,$(DIR_LIB))
+	$(call rm_dir,$(DIR_DEP))
+	$(call rm_file,$(NAME))
 
 re:
 	@$(MAKE) fclean
@@ -62,6 +68,12 @@ re:
 .SECONDARY: $(OBJS) $(DEPS)
 
 -include $(DEPS)
+
+define compile_objs
+	@mkdir -p $(dir $@) $(patsubst $(DIR_OBJ)%, $(DIR_DEP)%, $(dir $@))
+	@$(CXX) $(CXXFLAGS) -c $< -o $@ -MMD -MP -MF $(patsubst $(DIR_OBJ)%.o, $(DIR_DEP)%.d, $@) $(INCS)
+	@echo "$(GREEN) [+]$(COLOR) compiling $@"
+endef
 
 define rm_dir
 	@if [ -d "$(1)" ]; then \
@@ -78,6 +90,6 @@ define rm_file
 endef
 
 define output
-	echo "$(YELLOW) [✔] $(NAME) created$(COLOR)"
-	echo "$(GREEN) [/] usage: $(YELLOW)./$(NAME) 'message'$(COLOR)";
+	@echo "$(YELLOW) [✔] $(NAME) created$(COLOR)"
+	@echo "$(GREEN) [/] usage: $(YELLOW)./$(NAME) 'message'$(COLOR)";
 endef
