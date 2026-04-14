@@ -24,7 +24,7 @@ DIR_OBJ		:=obj/
 DIR_DEP		:=dep/
 DIR_UTILS	:=utils/
 
-SRC_FILES	:=phonebook.cpp contact.cpp main.cpp
+SRC_FILES	:=PhoneBook.cpp Contact.cpp main.cpp
 UTILS_FILES	:=io.cpp
 
 INCS		:=$(addprefix -I, $(DIR_INC) $(DIR_UTILS))

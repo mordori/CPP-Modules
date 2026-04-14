@@ -1,10 +1,17 @@
 #pragma once
 
+#include "Weapon.hpp"
+
+#include <string>
+
 class HumanA
 {
 private:
-	/* data */
+	std::string m_name{};
+	const Weapon& m_weapon;
+
 public:
-	HumanA(/* args */);
-	~HumanA();
+	HumanA(const std::string& name, const Weapon& weapon);
+
+	void attack() const;
 };

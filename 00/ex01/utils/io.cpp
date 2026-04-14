@@ -51,7 +51,7 @@ std::optional<std::size_t> extractInput(std::optional<std::string_view> prompt)
 			}
 			char* endptr{ str.data() + str.size() };
 			std::size_t index{};
-			auto[ptr, ec] = std::from_chars(str.data(), endptr, index);	// Structured binding, unpacks to separate variables
+			auto[ptr, ec]{ std::from_chars(str.data(), endptr, index) };	// Structured binding, unpacks to separate variables
 			if (ec != std::errc{} || ptr != endptr)
 			{
 				std::cout << '\n' << "Invalid input!" << "\n\n";
