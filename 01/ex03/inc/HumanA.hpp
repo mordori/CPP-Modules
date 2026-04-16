@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Weapon.hpp"
-
 #include <string>
+
+#include "Weapon.hpp"
 
 class HumanA
 {

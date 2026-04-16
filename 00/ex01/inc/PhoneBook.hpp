@@ -1,9 +1,9 @@
 #pragma once
 
-#include "contact.hpp"
-
 #include <cstddef>
 #include <string_view>
+
+#include "contact.hpp"
 
 class PhoneBook
 {

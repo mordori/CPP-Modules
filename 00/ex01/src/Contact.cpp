@@ -1,8 +1,11 @@
 #include "Contact.hpp"
-#include "io.hpp"
 
+#include <string>
+#include <utility>
 #include <iostream>
 #include <iomanip>
+
+#include "io.hpp"
 
 Contact::Contact(std::string firstName,
 				std::string lastName,

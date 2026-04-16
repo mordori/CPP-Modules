@@ -28,8 +28,7 @@ SRC_FILES	:=PhoneBook.cpp Contact.cpp main.cpp
 UTILS_FILES	:=io.cpp
 
 INCS		:=$(addprefix -I, $(DIR_INC) $(DIR_UTILS))
-SRCS		:=$(addprefix $(DIR_SRC), $(SRC_FILES)) \
-				$(addprefix $(DIR_UTILS), $(UTILS_FILES))
+SRCS		:=$(addprefix $(DIR_SRC), $(SRC_FILES)) $(addprefix $(DIR_UTILS), $(UTILS_FILES))
 OBJS		:=$(addprefix $(DIR_OBJ), $(SRC_FILES:.cpp=.o) $(UTILS_FILES:.cpp=.o))
 DEPS		:=$(patsubst $(DIR_OBJ)%.o, $(DIR_DEP)%.d, $(OBJS))
 

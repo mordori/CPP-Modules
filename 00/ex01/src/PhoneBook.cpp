@@ -1,11 +1,12 @@
 #include "PhoneBook.hpp"
-#include "io.hpp"
 
 #include <cstddef>
 #include <iostream>
 #include <iomanip>
 #include <optional>
 #include <string>
+
+#include "io.hpp"
 
 PhoneBook::PhoneBook(const PhoneBook& other) :
 	m_index{ other.m_index },

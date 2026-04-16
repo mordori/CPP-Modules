@@ -1,8 +1,9 @@
 #include "HumanB.hpp"
-#include "Weapon.hpp"
 
 #include <string>
 #include <iostream>
+
+#include "Weapon.hpp"
 
 HumanB::HumanB(const std::string& name) :
 	m_name{ name }

@@ -1,9 +1,9 @@
-#include "PhoneBook.hpp"
-#include "io.hpp"
-
 #include <iostream>
 #include <string>
 #include <string_view>
+
+#include "PhoneBook.hpp"
+#include "io.hpp"
 
 void executeCommand(std::string_view cmd, PhoneBook& pb);
 
