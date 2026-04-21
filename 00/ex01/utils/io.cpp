@@ -7,6 +7,14 @@
 #include <optional>
 #include <charconv>
 #include <cstddef>
+#include <ios>
+
+IosFlags::IosFlags(std::ios_base& stream) :
+	m_stream{ stream }, m_origFlags{ stream.flags() }
+{}
+
+IosFlags::~IosFlags()
+{ m_stream.flags(m_origFlags); }
 
 void extractInputTo(std::string& str, std::optional<std::string_view> prompt)
 {

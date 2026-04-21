@@ -8,7 +8,7 @@ private:
 	const Fixed x{};
 	const Fixed y{};
 public:
-	Point();
+	Point() = default;
 	Point(const float xx, const float yy);
 	Point(const Point& other);
 	~Point() = default;

@@ -15,15 +15,11 @@ enum class InputState
 
 struct IosFlags
 {
-	std::ios_base& stream;
-	std::ios_base::fmtflags originalFlags;
+	std::ios_base& m_stream;
+	std::ios_base::fmtflags m_origFlags;
 
-	explicit IosFlags(std::ios_base& s) :
-		stream{ s }, originalFlags{ s.flags() }
-	{}
-
-	~IosFlags()
-	{ stream.flags(originalFlags); }
+	explicit IosFlags(std::ios_base& stream);
+	~IosFlags();
 };
 
 InputState validateExtractedInput();

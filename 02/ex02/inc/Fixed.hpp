@@ -9,7 +9,7 @@ private:
 	int m_bits{};
 
 public:
-	Fixed();
+	Fixed() = default;
 	Fixed(const int value);
 	Fixed(const float value);
 	Fixed(const Fixed& other);

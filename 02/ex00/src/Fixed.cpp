@@ -2,8 +2,7 @@
 
 #include <iostream>
 
-Fixed::Fixed() :
-	m_bits{ 0 }
+Fixed::Fixed()
 { std::cout << "Default constructor called" << '\n'; }
 
 Fixed::Fixed(const Fixed& other) :

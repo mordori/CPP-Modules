@@ -3,8 +3,7 @@
 #include <iostream>
 #include <cmath>
 
-Fixed::Fixed() :
-	m_bits{ 0 }
+Fixed::Fixed()
 { std::cout << "Default constructor called" << '\n'; }
 
 Fixed::Fixed(const int value) :

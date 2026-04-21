@@ -5,10 +5,6 @@
 
 #pragma region Constructors
 
-Fixed::Fixed() :
-	m_bits{ 0 }
-{}
-
 Fixed::Fixed(const int value) :
 	m_bits{ value << FRAC_BITS }
 {}
