@@ -25,7 +25,7 @@ DIR_DEP		:=dep/
 DIR_UTILS	:=utils/
 
 SRC_FILES	:=main.cpp ClapTrap.cpp
-UTILS_FILES	:=
+UTILS_FILES	:=io.cpp
 
 INCS		:=$(addprefix -I, $(DIR_INC) $(DIR_UTILS))
 SRCS		:=$(addprefix $(DIR_SRC), $(SRC_FILES)) $(addprefix $(DIR_UTILS), $(UTILS_FILES))

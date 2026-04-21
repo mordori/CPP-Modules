@@ -1,0 +1,6 @@
+#include "ScavTrap.hpp"
+
+ScavTrap::ScavTrap(const std::string &name)
+{
+	m_name = name;
+}
