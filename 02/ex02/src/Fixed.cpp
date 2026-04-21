@@ -67,8 +67,6 @@ const Fixed& Fixed::max(const Fixed& a, const Fixed& b)
 
 Fixed& Fixed::operator=(const Fixed& other)
 {
-	if (this == &other)
-		return *this;
 	m_bits = other.m_bits;
 	return *this;
 }

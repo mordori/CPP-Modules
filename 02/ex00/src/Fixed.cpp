@@ -3,32 +3,30 @@
 #include <iostream>
 
 Fixed::Fixed()
-{ std::cout << "Default constructor called" << '\n'; }
+{ std::cout << "Fixed::Constructor" << '\n'; }
 
 Fixed::Fixed(const Fixed& other) :
 	m_bits{ other.m_bits }
-{ std::cout << "Copy constructor called" << '\n'; }
+{ std::cout << "Fixed::Copy Constructor" << '\n'; }
 
 Fixed::~Fixed()
-{ std::cout << "Destructor called" << '\n'; }
+{ std::cout << "Fixed::Destructor" << '\n'; }
 
 int Fixed::getRawBits() const
 {
-	std::cout << "getRawBits member function called" << '\n';
+	std::cout << "Fixed::getRawBits" << '\n';
 	return m_bits;
 }
 
 void Fixed::setRawBits(int const raw)
 {
-	std::cout << "setRawBits member function called" << '\n';
+	std::cout << "Fixed::setRawBits" << '\n';
 	m_bits = raw;
 }
 
 Fixed& Fixed::operator=(const Fixed& other)
 {
-	std::cout << "Copy assignment operator called" << '\n';
-	if (this == &other)
-		return *this;
+	std::cout << "Fixed::Copy Assignment" << '\n';
 	m_bits = other.m_bits;
 	return *this;
 }

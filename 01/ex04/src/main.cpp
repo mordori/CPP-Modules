@@ -42,7 +42,7 @@ bool run(int argc, char **argv)
 	std::string src{};
 	if (!readFileToString(src, fileName))
 		return false;
-	replace(src, s1, s2);
+	replaceSubString(src, s1, s2);
 	if (!writeStringToFile(src, fileName + ".replace"))
 		return false;
 	return true;

@@ -14,7 +14,7 @@ bool checkEmptyString(const std::string& str, const std::string& name, const std
 	return false;
 }
 
-void replace(std::string& src, const std::string& s1, const std::string& s2)
+void replaceSubString(std::string& src, const std::string& s1, const std::string& s2)
 {
 	size_t pos{};
 	while ((pos = src.find(s1, pos)) != std::string::npos)
