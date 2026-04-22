@@ -12,7 +12,10 @@ int main()
 	clap.takeDamage(20);
 	clap.takeDamage(10);
 	clap.attack(dummy);
-	clap.beRepaired(1);
+	clap.beRepaired(__UINT32_MAX__);
+	clap.takeDamage(1);
+	clap.beRepaired(12);
+	clap.takeDamage(10);
 	clap.attack(dummy);
 	clap.attack(dummy);
 	clap.attack(dummy);

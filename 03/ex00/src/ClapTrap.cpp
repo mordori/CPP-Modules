@@ -57,7 +57,8 @@ void ClapTrap::takeDamage(unsigned int amount)
 	else
 	{
 		m_hitPoints -= amount;
-		std::cout << "lost " << amount << " HP!\n";
+		std::cout << "lost " << amount << " HP! ";
+		std::cout << "It has " << m_hitPoints << " HP left!\n";
 	}
 }
 
@@ -72,6 +73,14 @@ void ClapTrap::beRepaired(unsigned int amount)
 		return;
 	}
 	--m_energyPoints;
-	++m_hitPoints;
-	std::cout << "healed " << amount << " HP!\n";
+	if (m_hitPoints > __UINT32_MAX__ - amount)
+	{
+		std::cout << "healed " << __UINT32_MAX__ - m_hitPoints << " HP!\n";
+		m_hitPoints = __UINT32_MAX__;
+	}
+	else
+	{
+		m_hitPoints += amount;
+		std::cout << "healed " << amount << " HP!\n";
+	}
 }
