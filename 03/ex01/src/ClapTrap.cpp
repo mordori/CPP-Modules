@@ -6,6 +6,13 @@
 
 #include "io.hpp"
 
+ClapTrap::ClapTrap(const std::string& name, unsigned int hp, unsigned int ep, unsigned int dmg) :
+	m_name{ name },
+	m_hitPoints{ hp },
+	m_energyPoints{ ep },
+	m_attackDamage{ dmg }
+{ std::cout << "\033[1;34mClapTrap::Constructor [protected] (" << m_name << ")\033[0m\n"; }
+
 ClapTrap::ClapTrap(const std::string& name) :
 	m_name{ name }
 { std::cout << "\033[1;34mClapTrap::Constructor (" << m_name << ")\033[0m\n"; }
@@ -24,8 +31,7 @@ void ClapTrap::attack(const std::string& target)
 {
 	IosFlags flags{ std::cout };
 	std::cout << std::left;
-	if (!m_hitPoints || !m_energyPoints)
-		std::cout << std::setw(40) << m_name + " tries to ATTACK: ";
+	std::cout << std::setw(COL_WIDTH) << m_name + " (ClapTrap)" + " tries to ATTACK " + target + ": ";
 	if (!m_hitPoints)
 	{
 		std::cout << "out of HP!\n";
@@ -37,7 +43,6 @@ void ClapTrap::attack(const std::string& target)
 		return;
 	}
 	--m_energyPoints;
-	std::cout << std::setw(40) << m_name + " ATTACKs " + target + ": ";
 	std::cout << "caused " << m_attackDamage << " DMG!\n";
 }
 
@@ -45,7 +50,7 @@ void ClapTrap::takeDamage(unsigned int amount)
 {
 	IosFlags flags{ std::cout };
 	std::cout << std::left;
-	std::cout << std::setw(40) << m_name + " is DAMAGED: ";
+	std::cout << std::setw(COL_WIDTH) << m_name + " is DAMAGED: ";
 	if (!m_hitPoints)
 	{
 		std::cout << "lost 0 HP (out of HP)!\n";
@@ -67,7 +72,7 @@ void ClapTrap::beRepaired(unsigned int amount)
 {
 	IosFlags flags{ std::cout };
 	std::cout << std::left;
-	std::cout << std::setw(40) << m_name + " tries to REPAIR itself:";
+	std::cout << std::setw(COL_WIDTH) << m_name + " tries to REPAIR itself:";
 	if (!m_energyPoints)
 	{
 		std::cout << "out of energy!\n";
@@ -76,16 +81,4 @@ void ClapTrap::beRepaired(unsigned int amount)
 	--m_energyPoints;
 	++m_hitPoints;
 	std::cout << "healed " << amount << " HP!\n";
-}
-
-ClapTrap& ClapTrap::operator=(const ClapTrap& other)
-{
-	if (this == &other)
-		return *this;
-	std::cout << "\033[1;34mClapTrap::Assignment (" << m_name << " <- " << other.m_name << ")\033[0m\n";
-	m_name = other.m_name;
-	m_hitPoints = other.m_hitPoints;
-	m_energyPoints = other.m_energyPoints;
-	m_attackDamage = other.m_attackDamage;
-	return *this;
 }

@@ -10,4 +10,3 @@ struct IosFlags
 	explicit IosFlags(std::ios_base& stream);
 	~IosFlags();
 };
-

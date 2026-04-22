@@ -4,8 +4,9 @@
 
 int main()
 {
+	const std::string dummy{ "Dummy"};
+
 	ClapTrap clap{ "Clap" };
-	const std::string dummy{ "Target Dummy"} ;
 	clap.attack(dummy);
 	clap.takeDamage(3);
 	clap.takeDamage(20);
@@ -24,7 +25,7 @@ int main()
 	clap.beRepaired(1);
 	ClapTrap clap2{ clap };
 	clap2.attack(dummy);
-	ClapTrap clap3{ "Clap-3" };
+	ClapTrap clap3{ "Clap3" };
 	clap2 = clap3;
 	clap2.attack(dummy);
 	return 0;

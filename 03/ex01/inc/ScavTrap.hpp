@@ -2,16 +2,18 @@
 
 #include <string>
 
-class ScavTrap : ClapTrap
+class ScavTrap : public ClapTrap
 {
 private:
 
 public:
 	ScavTrap(const std::string& name);
 	ScavTrap(const ScavTrap& other);
-	~ScavTrap();
+	~ScavTrap() override;
 
 	void guardGate();
 
-	ScavTrap& operator=(const ScavTrap& other);
+	void attack(const std::string& target);
+
+	ScavTrap& operator=(const ScavTrap& other) = default;
 };

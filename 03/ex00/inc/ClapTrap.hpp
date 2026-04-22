@@ -5,6 +5,8 @@
 class ClapTrap
 {
 private:
+	static constexpr int COL_WIDTH{ 50 };
+
 	std::string m_name{};
 	unsigned int m_hitPoints{10};
 	unsigned int m_energyPoints{10};
@@ -19,5 +21,5 @@ public:
 	void takeDamage(unsigned int amount);
 	void beRepaired(unsigned int amount);
 
-	ClapTrap& operator=(const ClapTrap& other);
+	ClapTrap& operator=(const ClapTrap& other) = default;
 };
