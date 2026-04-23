@@ -8,12 +8,7 @@ FragTrap::FragTrap(const std::string &name) :
 { std::cout << "\033[1;34mFragTrap::Constructor (" << m_name << ")\033[0m\n"; }
 
 FragTrap::FragTrap(const FragTrap& other) :
-	ClapTrap{
-		other.m_name,
-		other.m_hitPoints,
-		other.m_energyPoints,
-		other.m_attackDamage
-	}
+	ClapTrap{ other }
 { std::cout << "\033[1;34mFragTrap::Copy Constructor (" << m_name << ")\033[0m\n"; }
 
 FragTrap::~FragTrap()

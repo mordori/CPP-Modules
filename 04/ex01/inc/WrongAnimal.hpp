@@ -2,24 +2,24 @@
 
 #include <string>
 
-class Animal
+class WrongAnimal
 {
 private:
 
 protected:
 	std::string type{};
 
-	Animal(const std::string& type_);
+	WrongAnimal(const std::string& type_);
 
 public:
-	Animal();
-	Animal(const Animal& other);
-	virtual ~Animal();
+	WrongAnimal();
+	WrongAnimal(const WrongAnimal& other);
+	virtual ~WrongAnimal();
 
 	virtual void makeSound() const;
 
 	const std::string& getType() const;
 	void setType(const std::string& type_);
 
-	Animal& operator=(const Animal& other) = default;
+	WrongAnimal& operator=(const WrongAnimal& other) = default;
 };

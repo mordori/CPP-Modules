@@ -11,12 +11,7 @@ ScavTrap::ScavTrap(const std::string &name) :
 { std::cout << "\033[1;34mScavTrap::Constructor (" << m_name << ")\033[0m\n"; }
 
 ScavTrap::ScavTrap(const ScavTrap& other) :
-	ClapTrap{
-		other.m_name,
-		other.m_hitPoints,
-		other.m_energyPoints,
-		other.m_attackDamage
-	}
+	ClapTrap{ other }
 { std::cout << "\033[1;34mScavTrap::Copy Constructor (" << m_name << ")\033[0m\n"; }
 
 ScavTrap::~ScavTrap()
