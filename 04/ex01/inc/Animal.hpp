@@ -19,7 +19,6 @@ public:
 	virtual void makeSound() const;
 
 	const std::string& getType() const;
-	void setType(const std::string& type_);
 
 	Animal& operator=(const Animal& other) = default;
 };

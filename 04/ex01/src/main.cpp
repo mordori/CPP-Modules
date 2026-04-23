@@ -37,7 +37,13 @@ int main()
 			copyCat = sleepyCat;
 			std::cout << "CopyCat ideas: \n";
 			copyCat.getBrain().listIdeas();
-
+		}
+		std::cout << '\n';
+		{
+			Dog snoopDog{};
+			snoopDog.getBrain().addIdea("Blaze it");
+			std::cout << "SnoopDog ideas: \n";
+			snoopDog.getBrain().listIdeas();
 		}
 	}
 	catch(const std::exception& e)
