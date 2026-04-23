@@ -5,8 +5,6 @@
 #include "Animal.hpp"
 #include "Cat.hpp"
 #include "Dog.hpp"
-#include "WrongAnimal.hpp"
-#include "WrongCat.hpp"
 
 int main()
 {
@@ -41,7 +39,7 @@ int main()
 		std::cout << '\n';
 		{
 			Dog snoopDog{};
-			snoopDog.getBrain().addIdea("Blaze it");
+			snoopDog.getBrain().addIdea("Smoke weed every day");
 			std::cout << "SnoopDog ideas: \n";
 			snoopDog.getBrain().listIdeas();
 		}

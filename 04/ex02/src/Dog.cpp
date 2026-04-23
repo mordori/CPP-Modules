@@ -34,7 +34,7 @@ Dog& Dog::operator=(const Dog& other)
 {
 	if (this == &other)
 		return *this;
-	Animal::operator=(*this);
+	Animal::operator=(other);
 	Brain* temp = new Brain(*other.m_brain);
 	delete m_brain;
 	m_brain = temp;

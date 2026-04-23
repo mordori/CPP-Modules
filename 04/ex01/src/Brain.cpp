@@ -16,22 +16,24 @@ Brain::Brain(const Brain& other)
 			break;
 		ideas[i] = other.ideas[i];
 	}
+	index = other.index;
 }
 
 Brain::~Brain()
 { std::cout << "\033[1;31mBrain::Destructor\033[0m\n"; }
 
-void Brain::addIdea(const std::string& idea) {
-  ideas[index] = idea;
-  index = (index + 1) % MAX_IDEAS;
+void Brain::addIdea(const std::string& idea)
+{
+	ideas[index] = idea;
+	index = (index + 1) % MAX_IDEAS;
 }
 
 void Brain::listIdeas()
 {
-	for (std::string_view s : ideas)
+	for (std::string_view sv : ideas)
 	{
-		if (s.empty())
+		if (sv.empty())
 			break;
-		std::cout << s << '\n';
+		std::cout << sv << '\n';
 	}
 }
