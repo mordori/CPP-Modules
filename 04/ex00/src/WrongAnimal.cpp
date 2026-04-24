@@ -22,5 +22,3 @@ void WrongAnimal::makeSound() const
 const std::string& WrongAnimal::getType() const
 { return type; }
 
-void WrongAnimal::setType(const std::string& type_)
-{ type = type_; }

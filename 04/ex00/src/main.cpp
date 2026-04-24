@@ -24,7 +24,7 @@ int main()
 			delete dog;
 			delete cat;
 		}
-		std::cout << std::endl;
+		std::cout << '\n';
 		{
 			Animal* animal = new Cat();
 			Dog* dog = new Dog();
@@ -35,7 +35,7 @@ int main()
 			delete dog;
 			delete cat;
 		}
-		std::cout << std::endl;
+		std::cout << '\n';
 		{
 			Animal* animal = new Animal();
 			Animal* catAnimal = new Cat();
@@ -50,6 +50,7 @@ int main()
 			delete catAnimal;
 			delete cat;
 		}
+		std::cout << '\n';
 		{
 			const WrongAnimal* wrongAnimal = new WrongAnimal();
 			const WrongCat* wrongCat = new WrongCat();

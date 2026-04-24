@@ -19,7 +19,6 @@ public:
 	void makeSound() const;
 
 	const std::string& getType() const;
-	void setType(const std::string& type_);
 
 	WrongAnimal& operator=(const WrongAnimal& other) = default;
 };
