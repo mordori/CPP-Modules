@@ -13,7 +13,7 @@ public:
 	WrongCat(const WrongCat& other);
 	~WrongCat() override;
 
-	void makeSound() const override;
+	void makeSound() const;
 
 	WrongCat& operator=(const WrongCat& other) = default;
 };
