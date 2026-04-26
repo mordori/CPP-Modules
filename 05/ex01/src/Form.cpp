@@ -14,9 +14,9 @@ Form::Form(std::string name, std::size_t signGrade, std::size_t execGrade) :
 	m_execGrade{ execGrade }
 {
 	if (signGrade < 1 || execGrade < 1)
-		throw Form::GradeTooHighException{ "Construction aborted: " + m_name + ": Grade is too high!" };
+		throw Form::GradeTooHighException{ "Form::Construction aborted: " + m_name + ": Grade is too high!" };
 	if (signGrade > 150 || execGrade > 150)
-		throw Form::GradeTooLowException{ "Construction aborted: " + m_name + ": Grade is too low!" };
+		throw Form::GradeTooLowException{ "Form::Construction aborted: " + m_name + ": Grade is too low!" };
 }
 
 Form::GradeTooHighException::GradeTooHighException(const std::string& msg) :

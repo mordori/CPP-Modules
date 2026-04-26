@@ -7,13 +7,13 @@
 #include <stdexcept>
 
 Bureaucrat::Bureaucrat(std::string name, std::size_t grade) :
-	m_name{ std::move(name) }
+	m_name{ std::move(name) },
+	m_grade{ grade }
 {
 	if (grade < 1)
-		throw Bureaucrat::GradeTooHighException{ "Construction aborted: " + m_name };
+		throw Bureaucrat::GradeTooHighException{ "Bureaucrat::Construction aborted: " + m_name };
 	else if (grade > 150)
-		throw Bureaucrat::GradeTooLowException{ "Construction aborted: " + m_name };
-	m_grade = grade;
+		throw Bureaucrat::GradeTooLowException{ "Bureaucrat::Construction aborted: " + m_name };
 }
 
 Bureaucrat::GradeTooHighException::GradeTooHighException(const std::string& msg) :
@@ -38,7 +38,7 @@ void Bureaucrat::decrementGrade()
 	++m_grade;
 }
 
-const std::string &Bureaucrat::getName() const
+const std::string& Bureaucrat::getName() const
 { return m_name; }
 
 std::size_t Bureaucrat::getGrade() const
