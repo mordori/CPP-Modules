@@ -1,18 +1,29 @@
 #pragma once
 
-#include <exception>
+#include <stdexcept>
 #include <string>
 #include <cstddef>
 #include <iosfwd>
 
-class Bureaucrat : public std::exception
+class Bureaucrat
 {
 private:
 	const std::string m_name{};
-	std::size_t m_grade{ 150 };
+	std::size_t m_grade{};
 
 public:
-	Bureaucrat(const std::string& m_name, std::size_t grade);
+	struct GradeTooHighException : public std::out_of_range
+	{
+		GradeTooHighException(const std::string& msg);
+	};
+
+	struct GradeTooLowException : public std::out_of_range
+	{
+		GradeTooLowException(const std::string& msg);
+	};
+
+	Bureaucrat() = delete;
+	Bureaucrat(std::string name, std::size_t grade);
 	Bureaucrat(const Bureaucrat& other) = default;
 	~Bureaucrat() = default;
 
@@ -21,8 +32,6 @@ public:
 
 	const std::string& getName() const;
 	std::size_t getGrade() const;
-
-	const char* what() const noexcept;
 
 	Bureaucrat& operator=(const Bureaucrat& other) = default;
 };
