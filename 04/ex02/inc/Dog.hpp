@@ -4,7 +4,7 @@
 
 #include <string>
 
-#include "Brain.hpp"
+class Brain;
 
 class Dog : public Animal
 {

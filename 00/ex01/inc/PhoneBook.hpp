@@ -3,7 +3,7 @@
 #include <cstddef>
 #include <string_view>
 
-#include "contact.hpp"
+#include "Contact.hpp"
 
 class PhoneBook
 {

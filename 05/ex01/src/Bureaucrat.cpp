@@ -6,14 +6,16 @@
 #include <utility>
 #include <stdexcept>
 
+#include "Form.hpp"
+
 Bureaucrat::Bureaucrat(std::string name, std::size_t grade) :
-	m_name{ std::move(name) }
+	m_name{ std::move(name) },
+	m_grade{ grade }
 {
 	if (grade < 1)
 		throw Bureaucrat::GradeTooHighException{ "Construction aborted: " + m_name };
 	else if (grade > 150)
 		throw Bureaucrat::GradeTooLowException{ "Construction aborted: " + m_name };
-	m_grade = grade;
 }
 
 Bureaucrat::GradeTooHighException::GradeTooHighException(const std::string& msg) :
@@ -36,6 +38,19 @@ void Bureaucrat::decrementGrade()
 	if (m_grade >= 150)
 		throw Bureaucrat::GradeTooLowException{ "Grade decrement aborted: " + m_name };
 	++m_grade;
+}
+
+void Bureaucrat::signForm(Form& form) const
+{
+	try
+	{
+		form.beSigned(*this);
+		std::cout << m_name << " signed " << form.getName() << ".\n";
+	}
+	catch(const std::exception& e)
+	{
+		std::cout << m_name << " couldn't sign " << form.getName() << ", because their " << e.what() << ".\n";
+	}
 }
 
 const std::string &Bureaucrat::getName() const

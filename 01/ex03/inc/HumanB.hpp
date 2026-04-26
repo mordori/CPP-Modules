@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "Weapon.hpp"
+class Weapon;
 
 class HumanB
 {

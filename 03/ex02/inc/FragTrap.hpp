@@ -1,3 +1,5 @@
+#pragma once
+
 #include "ClapTrap.hpp"
 
 #include <string>

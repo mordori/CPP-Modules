@@ -4,13 +4,47 @@
 #include <utility>
 
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 int main()
 {
 	try
 	{
-		Bureaucrat bill{ "Bill", 0 };
-		std::cout << bill;	// Not reached
+		Form a01{ "A01", 0, 1 };
+		std::cout << a01;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	std::cout << '\n';
+
+	try
+	{
+		Form a10{ "A10", 1, 0 };
+		std::cout << a10;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	std::cout << '\n';
+
+	try
+	{
+		Form a1510{ "A1510", 151, 0 };
+		std::cout << a1510;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	std::cout << '\n';
+
+	try
+	{
+		Form a0151{ "A1510", 0, 151 };
+		std::cout << a0151;
 	}
 	catch(const std::exception& e)
 	{
@@ -19,47 +53,17 @@ int main()
 	std::cout << '\n';
 
 
-
 	try
 	{
-		Bureaucrat barbara{ "Barbara", 155 };
-		std::cout << barbara;	// Not reached
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-	}
-	std::cout << '\n';
-
-
-
-	try
-	{
-		Bureaucrat jane{ "Jane", 2 };
-		std::cout << jane;
-		while (true)
-		{
-			jane.incrementGrade();
-			std::cout << jane;
-		}
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-	}
-	std::cout << '\n';
-
-
-
-	try
-	{
-		Bureaucrat joe{ "Joe", 148 };
-		std::cout << joe;
-		while (true)
-		{
-			joe.decrementGrade();
-			std::cout << joe;
-		}
+		Bureaucrat bill{ "Bill", 2 };
+		std::cout << bill;
+		Form a1{ "A1", 1, 1 };
+		std::cout << a1;
+		bill.signForm(a1);
+		bill.incrementGrade();
+		std::cout << bill;
+		bill.signForm(a1);
+		std::cout << a1;
 	}
 	catch(const std::exception& e)
 	{
