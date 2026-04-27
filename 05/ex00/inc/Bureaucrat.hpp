@@ -33,7 +33,7 @@ public:
 	const std::string& getName() const;
 	std::size_t getGrade() const;
 
-	Bureaucrat& operator=(const Bureaucrat& other) = default;
+	Bureaucrat& operator=(const Bureaucrat& other) = delete;
 };
 
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& bureaucrat);

@@ -38,7 +38,7 @@ public:
 	std::size_t getSignGrade() const;
 	std::size_t getExecGrade() const;
 
-	Form& operator=(const Form& other) = default;
+	Form& operator=(const Form& other) = delete;
 };
 
 std::ostream& operator<<(std::ostream& os, const Form& form);
