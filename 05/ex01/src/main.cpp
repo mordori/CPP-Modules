@@ -1,7 +1,6 @@
 #include <iostream>
 #include <exception>
 #include <cstddef>
-#include <utility>
 
 #include "Bureaucrat.hpp"
 #include "Form.hpp"

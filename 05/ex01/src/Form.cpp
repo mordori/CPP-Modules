@@ -8,6 +8,14 @@
 
 #include "Bureaucrat.hpp"
 
+Form::GradeTooHighException::GradeTooHighException(const std::string& msg) :
+	std::out_of_range{ msg }
+{}
+
+Form::GradeTooLowException::GradeTooLowException(const std::string& msg) :
+	std::out_of_range{ msg }
+{}
+
 Form::Form(std::string name, std::size_t signGrade, std::size_t execGrade) :
 	m_name{ std::move(name) },
 	m_signGrade{ signGrade },
@@ -18,14 +26,6 @@ Form::Form(std::string name, std::size_t signGrade, std::size_t execGrade) :
 	if (signGrade > 150 || execGrade > 150)
 		throw Form::GradeTooLowException{ "Form::Construction aborted: " + m_name + ": Grade is too low!" };
 }
-
-Form::GradeTooHighException::GradeTooHighException(const std::string& msg) :
-	std::out_of_range{ msg }
-{}
-
-Form::GradeTooLowException::GradeTooLowException(const std::string& msg) :
-	std::out_of_range{ msg }
-{}
 
 void Form::beSigned(const Bureaucrat& bureaucrat)
 {

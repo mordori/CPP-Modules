@@ -1,7 +1,6 @@
 #include <iostream>
 #include <exception>
 #include <cstddef>
-#include <utility>
 
 #include "Bureaucrat.hpp"
 
@@ -10,27 +9,25 @@ int main()
 	try
 	{
 		Bureaucrat bill{ "Bill", 0 };
-		std::cout << bill;	// Not reached
+		std::cout << bill;
 	}
 	catch(const std::exception& e)
 	{
 		std::cerr << e.what() << '\n';
 	}
 	std::cout << '\n';
-
 
 
 	try
 	{
 		Bureaucrat barbara{ "Barbara", 155 };
-		std::cout << barbara;	// Not reached
+		std::cout << barbara;
 	}
 	catch(const std::exception& e)
 	{
 		std::cerr << e.what() << '\n';
 	}
 	std::cout << '\n';
-
 
 
 	try
@@ -48,7 +45,6 @@ int main()
 		std::cerr << e.what() << '\n';
 	}
 	std::cout << '\n';
-
 
 
 	try

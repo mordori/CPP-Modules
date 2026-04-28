@@ -13,14 +13,10 @@ private:
 
 public:
 	struct GradeTooHighException : public std::out_of_range
-	{
-		GradeTooHighException(const std::string& msg);
-	};
+	{ GradeTooHighException(const std::string& msg); };
 
 	struct GradeTooLowException : public std::out_of_range
-	{
-		GradeTooLowException(const std::string& msg);
-	};
+	{ GradeTooLowException(const std::string& msg); };
 
 	Bureaucrat() = delete;
 	Bureaucrat(std::string name, std::size_t grade);

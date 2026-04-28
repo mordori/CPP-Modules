@@ -17,14 +17,10 @@ private:
 
 public:
 	struct GradeTooHighException : public std::out_of_range
-	{
-		GradeTooHighException(const std::string& msg);
-	};
+	{ GradeTooHighException(const std::string& msg); };
 
 	struct GradeTooLowException : public std::out_of_range
-	{
-		GradeTooLowException(const std::string& msg);
-	};
+	{ GradeTooLowException(const std::string& msg); };
 
 	Form() = delete;
 	Form(std::string name, std::size_t signGrade, std::size_t execGrade);
