@@ -15,6 +15,10 @@ private:
 	const std::size_t m_signGrade{};
 	const std::size_t m_execGrade{};
 
+	Form() = delete;
+
+	Form& operator=(const Form& other) = delete;
+
 public:
 	struct GradeTooHighException : public std::out_of_range
 	{ GradeTooHighException(const std::string& msg); };
@@ -22,7 +26,6 @@ public:
 	struct GradeTooLowException : public std::out_of_range
 	{ GradeTooLowException(const std::string& msg); };
 
-	Form() = delete;
 	Form(std::string name, std::size_t signGrade, std::size_t execGrade);
 	Form(const Form& other) = default;
 	~Form() = default;
@@ -33,8 +36,6 @@ public:
 	bool getIsSigned() const;
 	std::size_t getSignGrade() const;
 	std::size_t getExecGrade() const;
-
-	Form& operator=(const Form& other) = delete;
 };
 
 std::ostream& operator<<(std::ostream& os, const Form& form);

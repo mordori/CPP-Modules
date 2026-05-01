@@ -4,12 +4,14 @@ CXX			:=c++
 STD			:=-std=c++20
 WFLAGS		:=-Wall -Wextra -Werror -Wpedantic -Wunreachable-code -Wshadow \
 			-Wnull-dereference -Wfloat-equal -Wcast-align -Wformat=2 \
-			-Wswitch-enum -Wundef -Wconversion -Wsign-conversion
+			-Wswitch-enum -Wundef -Wconversion -Wsign-conversion \
+			-Wextra-semi -Wcomma -Wparentheses -Wimplicit-fallthrough \
+			-Wnon-virtual-dtor -Wctor-dtor-privacy -Wtype-limits
 CXX_WFLAGS	:=-Wold-style-cast
 
 DEFS		:=
-DFLAGS		:=
 OPTS		:=-O2 -DNDEBUG
+DEBUG		:=-O0 -g -fsanitize=address,undefined,alignment,float-cast-overflow,float-divide-by-zero -fno-omit-frame-pointer
 LDFLAGS		:=
 
 CXXFLAGS	:=$(STD) $(WFLAGS) $(CXX_WFLAGS) $(DEFS) $(OPTS)
@@ -63,7 +65,11 @@ re:
 	@$(MAKE) fclean
 	@$(MAKE) all
 
-.PHONY: all clean fclean re
+debug:
+	@$(MAKE) fclean
+	@$(MAKE) all OPTS="$(DEBUG)"
+
+.PHONY: all clean fclean re debug
 .SECONDARY: $(OBJS) $(DEPS)
 
 -include $(DEPS)

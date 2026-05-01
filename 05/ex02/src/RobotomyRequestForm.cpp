@@ -12,9 +12,10 @@ RobotomyRequestForm::RobotomyRequestForm(std::string target) :
 
 void RobotomyRequestForm::execute(const Bureaucrat& executor) const
 {
+	static std::mt19937 mt{ std::random_device{}() };
+
 	AForm::execute(executor);
 	std::cout << "*DRILLING NOISES*\n";
-	std::mt19937 mt{ std::random_device{}() };
 	std::uniform_int_distribution random01{ 0, 1 };
 	if (random01(mt))
 		std::cout << getTarget() << " succesfully robotomized.\n";

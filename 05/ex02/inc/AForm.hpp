@@ -16,6 +16,10 @@ private:
 	const std::size_t m_signGrade{};
 	const std::size_t m_execGrade{};
 
+	AForm() = delete;
+
+	AForm& operator=(const AForm& other) = delete;
+
 protected:
 	struct GradeTooHighException : public std::out_of_range
 	{ GradeTooHighException(const std::string& msg); };
@@ -23,11 +27,8 @@ protected:
 	struct GradeTooLowException : public std::out_of_range
 	{ GradeTooLowException(const std::string& msg); };
 
-	AForm() = delete;
 	AForm(std::string name, std::string target, std::size_t signGrade, std::size_t execGrade);
 	AForm(const AForm& other) = default;
-
-	AForm& operator=(const AForm& other) = delete;
 
 public:
 	virtual ~AForm() = default;

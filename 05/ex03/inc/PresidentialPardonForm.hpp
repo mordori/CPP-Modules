@@ -5,14 +5,14 @@
 class PresidentialPardonForm : public AForm
 {
 private:
+	PresidentialPardonForm() = delete;
+
+	PresidentialPardonForm& operator=(const PresidentialPardonForm& other) = delete;
 
 public:
-	PresidentialPardonForm() = delete;
 	PresidentialPardonForm(std::string target);
 	PresidentialPardonForm(const PresidentialPardonForm& other) = default;
 	~PresidentialPardonForm() override = default;
 
 	void execute(const Bureaucrat& executor) const override;
-
-	PresidentialPardonForm& operator=(const PresidentialPardonForm& other) = delete;
 };
