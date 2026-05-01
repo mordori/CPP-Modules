@@ -8,7 +8,7 @@ int main(int argc, char** argv)
 {
 	if (argc != 2)
 	{
-		std::cerr << "Usage: ./convert 'number'\n";
+		std::cerr << "Usage: ./convert 'arg'\n";
 		return 1;
 	}
 	ScalarConverter::convert(argv[1]);

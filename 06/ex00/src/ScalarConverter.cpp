@@ -135,22 +135,29 @@ static constexpr bool convertScalar(std::string_view sv, T& out)
 #pragma endregion
 
 #pragma region Printing
-static void printChar(char c, bool isPseudoScalar, double d)
+static void printChar(double d, bool isPseudoScalar)
 {
 	if (isPseudoScalar || d < static_cast<double>(std::numeric_limits<char>::min()) || d > static_cast<double>(std::numeric_limits<char>::max()))
+	{
 		std::cout << "char: impossible" << '\n';
-	else if (c >= 32 && c <= 126)
+		return;
+	}
+	char c = static_cast<char>(d);
+	if (c >= 32 && c <= 126)
 		std::cout << "char: " << c << '\n';
 	else
 		std::cout << "char: Non displayable" << '\n';
 }
 
-static void printInt(int i, bool isPseudoScalar, double d)
+static void printInt(double d, bool isPseudoScalar)
 {
 	if (isPseudoScalar || d < static_cast<double>(std::numeric_limits<int>::min()) || d > static_cast<double>(std::numeric_limits<int>::max()))
+	{
 		std::cout << "int: impossible" << '\n';
-	else
-		std::cout << "int: " << i << '\n';
+		return;
+	}
+	int i = static_cast<int>(d);
+	std::cout << "int: " << i << '\n';
 }
 
 template <typename T>
@@ -163,16 +170,17 @@ static void printZeroDecimal(T value, bool isPseudoScalar)
 		std::cout << ".0";
 }
 
-static void printFloat(float f, bool isPseudoScalar, double d)
+static void printFloat(double d, bool isPseudoScalar)
 {
 	if (!isPseudoScalar && (d < static_cast<double>(std::numeric_limits<float>::lowest()) || d > static_cast<double>(std::numeric_limits<float>::max())))
-		std::cout << "float: impossible" << '\n';
-	else
 	{
-		std::cout << "float: " << f;
-		printZeroDecimal(f, isPseudoScalar);
-		std::cout << "f\n";
+		std::cout << "float: impossible" << '\n';
+		return;
 	}
+	float f = static_cast<float>(d);
+	std::cout << "float: " << f;
+	printZeroDecimal(f, isPseudoScalar);
+	std::cout << "f\n";
 }
 
 static void printDouble(double d, bool isPseudoScalar)
@@ -185,16 +193,13 @@ static void printDouble(double d, bool isPseudoScalar)
 template <typename T>
 static void printConversions(T value)
 {
-	char c = static_cast<char>(value);
-	int i = static_cast<int>(value);
 	double d = static_cast<double>(value);
-	float f = static_cast<float>(value);
 	bool isPseudoScalar{};
 	if constexpr (std::is_floating_point_v<T>)
 		isPseudoScalar = (std::isnan(value) || std::isinf(value));
-	printChar(c, isPseudoScalar, d);
-	printInt(i, isPseudoScalar, d);
-	printFloat(f, isPseudoScalar, d);
+	printChar(d, isPseudoScalar);
+	printInt(d, isPseudoScalar);
+	printFloat(d, isPseudoScalar);
 	printDouble(d, isPseudoScalar);
 }
 #pragma endregion
