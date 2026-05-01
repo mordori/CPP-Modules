@@ -29,12 +29,15 @@ Form::Form(std::string name, std::size_t signGrade, std::size_t execGrade) :
 
 void Form::beSigned(const Bureaucrat& bureaucrat)
 {
+	if (m_isSigned)
+		throw std::logic_error{ "the form is already signed" };
 	if (bureaucrat.getGrade() > m_signGrade)
-		throw Form::GradeTooLowException{ "grade is too low" };
+		throw Form::GradeTooLowException{ "their grade is too low" };
 	m_isSigned = true;
 }
 
-const std::string& Form::getName() const { return m_name; }
+const std::string& Form::getName() const
+{ return m_name; }
 
 bool Form::getIsSigned() const
 { return m_isSigned; }

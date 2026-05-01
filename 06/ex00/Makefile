@@ -6,15 +6,14 @@ WFLAGS		:=-Wall -Wextra -Werror -Wpedantic -Wunreachable-code -Wshadow \
 			-Wnull-dereference -Wfloat-equal -Wcast-align -Wformat=2 \
 			-Wswitch-enum -Wundef -Wconversion -Wsign-conversion \
 			-Wextra-semi -Wcomma -Wparentheses -Wimplicit-fallthrough \
-			-Wnon-virtual-dtor -Wctor-dtor-privacy -Wtype-limits
-CXX_WFLAGS	:=-Wold-style-cast
+			-Wnon-virtual-dtor -Wctor-dtor-privacy -Wtype-limits -Wold-style-cast
 
 DEFS		:=
 OPTS		:=-O2 -DNDEBUG
 DEBUG		:=-O0 -g -fsanitize=address,undefined,alignment,float-cast-overflow,float-divide-by-zero -fno-omit-frame-pointer
 LDFLAGS		:=
 
-CXXFLAGS	:=$(STD) $(WFLAGS) $(CXX_WFLAGS) $(DEFS) $(OPTS)
+CXXFLAGS	:=$(STD) $(WFLAGS) $(DEFS) $(OPTS)
 ifeq ($(MAKELEVEL),0)
 	MAKEFLAGS	+= --no-print-directory -j$(shell nproc 2>/dev/null || echo 4)
 endif

@@ -42,7 +42,7 @@ int main()
 
 	try
 	{
-		Form a0151{ "A1510", 0, 151 };
+		Form a0151{ "A0151", 0, 151 };
 		std::cout << a0151;
 	}
 	catch(const std::exception& e)
@@ -63,6 +63,7 @@ int main()
 		std::cout << bill;
 		bill.signForm(a1);
 		std::cout << a1;
+		bill.signForm(a1);
 	}
 	catch(const std::exception& e)
 	{

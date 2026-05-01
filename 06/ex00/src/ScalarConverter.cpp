@@ -219,16 +219,11 @@ void ScalarConverter::convert(const std::string& str)
 	std::string_view sv{ str };
 	switch (detectType(sv))
 	{
-	case LiteralType::CHAR:
-		printConversions(sv.front()); break;
-	case LiteralType::INT:
-		buildConversions<int>(sv); break;
-	case LiteralType::FLOAT:
-		buildConversions<float>(sv); break;
-	case LiteralType::DOUBLE:
-		buildConversions<double>(sv); break;
+	case LiteralType::CHAR: printConversions(sv.front()); break;
+	case LiteralType::INT: buildConversions<int>(sv); break;
+	case LiteralType::FLOAT: buildConversions<float>(sv); break;
+	case LiteralType::DOUBLE: buildConversions<double>(sv); break;
 	case LiteralType::INVALID: [[fallthrough]];
-	default:
-		std::cerr << "Error: Invalid input.\n"; break;
+	default: std::cerr << "Error: Invalid input.\n"; break;
 	}
 }

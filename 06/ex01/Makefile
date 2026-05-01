@@ -25,7 +25,7 @@ DIR_OBJ		:=obj/
 DIR_DEP		:=dep/
 DIR_UTILS	:=utils/
 
-SRC_FILES	:=main.cpp Animal.cpp Cat.cpp Dog.cpp WrongAnimal.cpp WrongCat.cpp
+SRC_FILES	:=main.cpp Serializer.cpp
 UTILS_FILES	:=
 
 INCS		:=$(addprefix -I, $(DIR_INC) $(DIR_UTILS))

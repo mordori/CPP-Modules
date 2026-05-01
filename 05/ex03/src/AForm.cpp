@@ -30,6 +30,8 @@ AForm::AForm(std::string name, std::string target, std::size_t signGrade, std::s
 
 void AForm::beSigned(const Bureaucrat& bureaucrat)
 {
+	if (m_isSigned)
+		throw std::logic_error{ "the form is already signed" };
 	if (bureaucrat.getGrade() > m_signGrade)
 		throw AForm::GradeTooLowException{ "their grade is too low" };
 	m_isSigned = true;
@@ -38,13 +40,9 @@ void AForm::beSigned(const Bureaucrat& bureaucrat)
 void AForm::execute(const Bureaucrat& executor) const
 {
 	if (!m_isSigned)
-	{
 		throw std::logic_error{ "the form has not been signed" };
-	}
 	if (executor.getGrade() > m_execGrade)
-	{
 		throw AForm::GradeTooLowException{ "their grade is too low" };
-	}
 }
 
 const std::string& AForm::getName() const
