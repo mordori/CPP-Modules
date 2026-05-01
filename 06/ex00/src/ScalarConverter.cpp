@@ -7,8 +7,9 @@
 #include <charconv>
 #include <type_traits>
 #include <limits>
-
-#include "Conversions.hpp"
+#include <iostream>
+#include <cmath>
+#include <sstream>
 
 enum class LiteralType
 {
@@ -19,15 +20,18 @@ enum class LiteralType
 	INVALID
 };
 
-constexpr bool isChar(std::string_view sv)
+#pragma region Type Detection
+static constexpr bool isChar(std::string_view sv)
 {
-	if (sv.length() == 1 && !std::isdigit(static_cast<unsigned char>(sv[0])))
+	if (sv.length() == 1 && !std::isdigit(static_cast<unsigned char>(sv.front())))
 		return true;
 	return false;
 }
 
-constexpr bool isInt(std::string_view sv)
+static constexpr bool isInt(std::string_view sv)
 {
+	if (sv.front() == '-' || sv.front() == '+')
+		sv.remove_prefix(1);
 	for (char c : sv)
 	{
 		if (!std::isdigit(static_cast<unsigned char>(c)))
@@ -36,9 +40,13 @@ constexpr bool isInt(std::string_view sv)
 	return true;
 }
 
-constexpr bool isDouble(std::string_view sv)
+static constexpr bool isDouble(std::string_view sv)
 {
-	if (sv == "nan" || sv == "inf")
+	if (sv == "nan")
+		return true;
+	if (sv.front() == '-' || sv.front() == '+')
+		sv.remove_prefix(1);
+	if (sv == "inf")
 		return true;
 	std::size_t dots{};
 	std::size_t digits{};
@@ -54,7 +62,7 @@ constexpr bool isDouble(std::string_view sv)
 	return (dots == 1 && digits > 0);
 }
 
-constexpr bool isFloat(std::string_view sv)
+static constexpr bool isFloat(std::string_view sv)
 {
 	if (sv.back() != 'f')
 		return false;
@@ -62,44 +70,40 @@ constexpr bool isFloat(std::string_view sv)
 	return isDouble(sv);
 }
 
-constexpr LiteralType detectType(std::string_view sv)
+static constexpr LiteralType detectType(std::string_view sv)
 {
 	if (sv.empty())
 		return LiteralType::INVALID;
 	if (isChar(sv))
 		return LiteralType::CHAR;
-	if (sv[0] == '-' || sv[0] == '+')
-		sv.remove_prefix(1);
 	if (isInt(sv))
 		return LiteralType::INT;
-	if (isDouble(sv))
-		return LiteralType::DOUBLE;
 	if (isFloat(sv))
 		return LiteralType::FLOAT;
+	if (isDouble(sv))
+		return LiteralType::DOUBLE;
 	return LiteralType::INVALID;
 }
+#pragma endregion
 
+#pragma region Type Conversion
 template <typename T>
-constexpr bool isPseudoScalar(std::string_view sv, T& out)
+static constexpr bool isPseudoScalar(std::string_view sv, T& out)
 {
 	if constexpr (std::is_floating_point_v<T>)
 	{
-		bool isNegative{};
-		if (sv.front() == '-')
-		{
-			isNegative = true;
-			sv.remove_prefix(1);
-		}
-		else if (sv.front() == '+')
-			sv.remove_prefix(1);
 		if (sv == "nan" || sv == "nanf")
 		{
 			out = std::numeric_limits<T>::quiet_NaN();
 			return true;
 		}
+		bool isNegative{ (sv.front() == '-') };
+		if (isNegative || sv.front() == '+')
+			sv.remove_prefix(1);
 		if (sv == "inf" || sv == "inff")
 		{
-			out = isNegative ? -std::numeric_limits<T>::infinity() : std::numeric_limits<T>::infinity();
+			out = std::numeric_limits<T>::infinity();
+			out = isNegative ? -out : out;
 			return true;
 		}
 	}
@@ -107,7 +111,7 @@ constexpr bool isPseudoScalar(std::string_view sv, T& out)
 }
 
 template <typename T>
-constexpr bool convertScalar(std::string_view sv, T& out)
+static constexpr bool convertScalar(std::string_view sv, T& out)
 {
 	if (isPseudoScalar(sv, out))
 		return true;
@@ -128,13 +132,81 @@ constexpr bool convertScalar(std::string_view sv, T& out)
 	}
 	return true;
 }
+#pragma endregion
+
+#pragma region Printing
+static void printChar(char c, bool isPseudoScalar, double d)
+{
+	if (isPseudoScalar || d < static_cast<double>(std::numeric_limits<char>::min()) || d > static_cast<double>(std::numeric_limits<char>::max()))
+		std::cout << "char: impossible" << '\n';
+	else if (c >= 32 && c <= 126)
+		std::cout << "char: " << c << '\n';
+	else
+		std::cout << "char: Non displayable" << '\n';
+}
+
+static void printInt(int i, bool isPseudoScalar, double d)
+{
+	if (isPseudoScalar || d < static_cast<double>(std::numeric_limits<int>::min()) || d > static_cast<double>(std::numeric_limits<int>::max()))
+		std::cout << "int: impossible" << '\n';
+	else
+		std::cout << "int: " << i << '\n';
+}
 
 template <typename T>
-constexpr void buildConversions(std::string_view sv)
+static void printZeroDecimal(T value, bool isPseudoScalar)
+{
+	std::ostringstream oss;
+	oss << value;
+	std::string str = oss.str();
+	if (str.find('.') == std::string::npos && str.find('e') == std::string::npos && !isPseudoScalar)
+		std::cout << ".0";
+}
+
+static void printFloat(float f, bool isPseudoScalar, double d)
+{
+	if (!isPseudoScalar && (d < static_cast<double>(std::numeric_limits<float>::lowest()) || d > static_cast<double>(std::numeric_limits<float>::max())))
+		std::cout << "float: impossible" << '\n';
+	else
+	{
+		std::cout << "float: " << f;
+		printZeroDecimal(f, isPseudoScalar);
+		std::cout << "f\n";
+	}
+}
+
+static void printDouble(double d, bool isPseudoScalar)
+{
+	std::cout << "double: " << d;
+	printZeroDecimal(d, isPseudoScalar);
+	std::cout << '\n';
+}
+
+template <typename T>
+static void printConversions(T value)
+{
+	char c = static_cast<char>(value);
+	int i = static_cast<int>(value);
+	double d = static_cast<double>(value);
+	float f = static_cast<float>(value);
+	bool isPseudoScalar{};
+	if constexpr (std::is_floating_point_v<T>)
+		isPseudoScalar = (std::isnan(value) || std::isinf(value));
+	printChar(c, isPseudoScalar, d);
+	printInt(i, isPseudoScalar, d);
+	printFloat(f, isPseudoScalar, d);
+	printDouble(d, isPseudoScalar);
+}
+#pragma endregion
+
+template <typename T>
+static constexpr void buildConversions(std::string_view sv)
 {
 	T value{};
 	if (convertScalar(sv, value))
-		Conversions{ value };
+		printConversions(value);
+	else
+		std::cerr << "Error: Invalid input.\n";
 }
 
 void ScalarConverter::convert(const std::string& str)
@@ -143,15 +215,15 @@ void ScalarConverter::convert(const std::string& str)
 	switch (detectType(sv))
 	{
 	case LiteralType::CHAR:
-		Conversions{ sv[0] }; break;
+		printConversions(sv.front()); break;
 	case LiteralType::INT:
 		buildConversions<int>(sv); break;
-	case LiteralType::DOUBLE:
-		buildConversions<double>(sv); break;
 	case LiteralType::FLOAT:
 		buildConversions<float>(sv); break;
-	case LiteralType::INVALID:
+	case LiteralType::DOUBLE:
+		buildConversions<double>(sv); break;
+	case LiteralType::INVALID: [[fallthrough]];
 	default:
-		break;
+		std::cerr << "Error: Invalid input.\n"; break;
 	}
 }

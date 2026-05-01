@@ -24,7 +24,7 @@ DIR_OBJ		:=obj/
 DIR_DEP		:=dep/
 DIR_UTILS	:=utils/
 
-SRC_FILES	:=main.cpp ScalarConverter.cpp Conversions.cpp
+SRC_FILES	:=main.cpp ScalarConverter.cpp
 UTILS_FILES	:=
 
 INCS		:=$(addprefix -I, $(DIR_INC) $(DIR_UTILS))
