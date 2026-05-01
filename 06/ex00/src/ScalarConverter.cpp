@@ -137,13 +137,13 @@ static constexpr bool convertScalar(std::string_view sv, T& out)
 #pragma region Printing
 static void printChar(double d, bool isPseudoScalar)
 {
-	if (isPseudoScalar || d < static_cast<double>(std::numeric_limits<char>::min()) || d > static_cast<double>(std::numeric_limits<char>::max()))
+	if (isPseudoScalar || d < std::numeric_limits<char>::min() || d > std::numeric_limits<char>::max())
 	{
 		std::cout << "char: impossible" << '\n';
 		return;
 	}
 	char c = static_cast<char>(d);
-	if (c >= 32 && c <= 126)
+	if (std::isprint(static_cast<unsigned char>(c)))
 		std::cout << "char: " << c << '\n';
 	else
 		std::cout << "char: Non displayable" << '\n';
@@ -151,7 +151,7 @@ static void printChar(double d, bool isPseudoScalar)
 
 static void printInt(double d, bool isPseudoScalar)
 {
-	if (isPseudoScalar || d < static_cast<double>(std::numeric_limits<int>::min()) || d > static_cast<double>(std::numeric_limits<int>::max()))
+	if (isPseudoScalar || d < std::numeric_limits<int>::min() || d > std::numeric_limits<int>::max())
 	{
 		std::cout << "int: impossible" << '\n';
 		return;
@@ -172,7 +172,7 @@ static void printZeroDecimal(T value, bool isPseudoScalar)
 
 static void printFloat(double d, bool isPseudoScalar)
 {
-	if (!isPseudoScalar && (d < static_cast<double>(std::numeric_limits<float>::lowest()) || d > static_cast<double>(std::numeric_limits<float>::max())))
+	if (!isPseudoScalar && (d < std::numeric_limits<float>::lowest() || d > std::numeric_limits<float>::max()))
 	{
 		std::cout << "float: impossible" << '\n';
 		return;

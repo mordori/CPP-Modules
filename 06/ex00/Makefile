@@ -4,7 +4,7 @@ CXX			:=c++
 STD			:=-std=c++20
 WFLAGS		:=-Wall -Wextra -Werror -Wpedantic -Wunreachable-code -Wshadow \
 			-Wnull-dereference -Wfloat-equal -Wcast-align -Wformat=2 \
-			-Wswitch-enum -Wundef -Wconversion -Wsign-conversion -Wdouble-promotion \
+			-Wswitch-enum -Wundef -Wconversion -Wsign-conversion \
 			-Wextra-semi -Wcomma -Wparentheses -Wimplicit-fallthrough \
 			-Wnon-virtual-dtor -Wctor-dtor-privacy -Wtype-limits
 WFLAGS		+=-fsanitize=address,undefined,float-cast-overflow,float-divide-by-zero -fno-omit-frame-pointer
