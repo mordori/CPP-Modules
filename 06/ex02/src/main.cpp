@@ -1,6 +1,7 @@
 #include <iostream>
 #include <random>
 #include <exception>
+#include <cstddef>
 
 #include "Base.hpp"
 #include "A.hpp"
@@ -40,19 +41,19 @@ void identify(Base& p)
 int main()
 {
 	Base* ptr[10]{};
-	for (size_t i{}; i < 10; ++i)
+	for (std::size_t i{}; i < 10; ++i)
 		ptr[i] = generate();
 
 	std::cout << "Ptr:\t";
-	for (size_t i{}; i < 10; ++i)
+	for (std::size_t i{}; i < 10; ++i)
 		identify(ptr[i]);
 
 	std::cout << "\nRef:\t";
-	for (size_t i{}; i < 10; ++i)
+	for (std::size_t i{}; i < 10; ++i)
 		identify(*(ptr[i]));
 
 	std::cout << '\n';
-	for (size_t i{}; i < 10; ++i)
+	for (std::size_t i{}; i < 10; ++i)
 		delete ptr[i];
 	return 0;
 }
