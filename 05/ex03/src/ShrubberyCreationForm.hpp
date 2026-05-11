@@ -2,6 +2,8 @@
 
 #include "AForm.hpp"
 
+#include <string>
+
 class ShrubberyCreationForm : public AForm
 {
 private:

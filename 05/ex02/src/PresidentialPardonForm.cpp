@@ -1,6 +1,7 @@
 #include "PresidentialPardonForm.hpp"
 
 #include <iostream>
+#include <string>
 #include <utility>
 
 #include "Bureaucrat.hpp"

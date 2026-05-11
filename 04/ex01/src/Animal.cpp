@@ -10,7 +10,7 @@ Animal::Animal(const std::string& type_) :
 { std::cout << "\033[1;34mAnimal::Constructor\033[0m\n"; }
 
 Animal::Animal(const Animal &other) :
-	type{other.type}
+	type{ other.type }
 { std::cout << "\033[1;34mAnimal::Copy Constructor\033[0m\n"; }
 
 Animal::~Animal()
@@ -21,4 +21,3 @@ void Animal::makeSound() const
 
 const std::string& Animal::getType() const
 { return type; }
-

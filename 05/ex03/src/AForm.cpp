@@ -1,10 +1,10 @@
 #include "AForm.hpp"
 
-#include <iostream>
-#include <string>
 #include <cstddef>
-#include <utility>
+#include <iostream>
 #include <stdexcept>
+#include <string>
+#include <utility>
 
 #include "Bureaucrat.hpp"
 

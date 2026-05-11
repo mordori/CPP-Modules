@@ -1,9 +1,9 @@
 #pragma once
 
-#include <stdexcept>
-#include <string>
 #include <cstddef>
 #include <iosfwd>
+#include <stdexcept>
+#include <string>
 
 class Bureaucrat;
 
