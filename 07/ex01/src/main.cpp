@@ -7,13 +7,13 @@ template <typename T>
 void printT(const T& t)
 { std::cout << t << '\n'; }
 
-void addOne(int& i)
-{ i += 1; }
+void increment(int& i)
+{ ++i; }
 
 int main()
 {
 	int ints[3] = { 0, 1, 2 };
-	iter(ints, 3, addOne);
+	iter(ints, 3, increment);
 	iter(ints, 3, printT<int>);
 	std::cout << '\n';
 
