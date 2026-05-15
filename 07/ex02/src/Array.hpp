@@ -35,14 +35,7 @@ public:
 		return *this;
 	}
 
-	T& operator[](unsigned int index)
-	{
-		if (index >= m_n)
-			throw std::out_of_range{ "Index out of bounds" };
-		return m_data[index];
-	}
-
-	const T& operator[](unsigned int index) const
+	T& operator[](unsigned int index) const
 	{
 		if (index >= m_n)
 			throw std::out_of_range{ "Index out of bounds" };
