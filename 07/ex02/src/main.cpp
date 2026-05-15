@@ -53,5 +53,28 @@ int main(int, char**)
         numbers[i] = rand();
     }
     delete [] mirror;//
+
+    Array<const float>a{};
+    try{
+        std::cout << a.size() << "\n";
+        std::cout << a[0] << "\n";
+
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+
+    Array<int>b{3};
+    try{
+        std::cout << b.size() << "\n";
+        b[0] = 1;
+        std::cout << b[0] << "\n";
+
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
     return 0;
 }

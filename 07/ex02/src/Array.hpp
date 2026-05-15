@@ -12,21 +12,13 @@ private:
 
 public:
 	Array() = default;
-	Array(unsigned int n) :
-		m_n{ n },
-		m_data{ new T[n]{} }
-	{}
-	Array(const Array& other) :
-		m_n{ other.m_n },
-		m_data{ new T[other.m_n]{} }
+	Array(unsigned int n) : m_n{ n }, m_data{ new T[n]{} } {}
+	Array(const Array& other) : m_n{ other.m_n }, m_data{ new T[other.m_n]{} }
 	{
 		for (std::size_t i{}; i < m_n; ++i)
 			m_data[i] = other.m_data[i];
 	}
-	~Array()
-	{
-		delete[] m_data;
-	}
+	~Array() { delete[] m_data; }
 
 	unsigned int size() const { return m_n; }
 
