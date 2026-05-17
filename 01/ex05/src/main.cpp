@@ -1,7 +1,6 @@
 #include "Harl.hpp"
 
-int main()
-{
+int main() {
 	Harl harl{};
 	harl.complain("DEBUG");
 	harl.complain("INFO");

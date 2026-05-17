@@ -1,14 +1,13 @@
 #pragma once
 
-#include <stdexcept>
-#include <string>
 #include <cstddef>
 #include <iosfwd>
+#include <stdexcept>
+#include <string>
 
 class Bureaucrat;
 
-class Form
-{
+class Form {
 private:
 	const std::string m_name{};
 	bool m_isSigned{};
@@ -20,11 +19,13 @@ private:
 	Form& operator=(const Form& other) = delete;
 
 public:
-	struct GradeTooHighException : public std::out_of_range
-	{ GradeTooHighException(const std::string& msg); };
+	struct GradeTooHighException : public std::out_of_range {
+		GradeTooHighException(const std::string& msg);
+	};
 
-	struct GradeTooLowException : public std::out_of_range
-	{ GradeTooLowException(const std::string& msg); };
+	struct GradeTooLowException : public std::out_of_range {
+		GradeTooLowException(const std::string& msg);
+	};
 
 	Form(std::string name, std::size_t signGrade, std::size_t execGrade);
 	Form(const Form& other) = default;

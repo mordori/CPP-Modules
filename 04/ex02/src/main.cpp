@@ -1,12 +1,11 @@
-#include <iostream>
 #include <exception>
+#include <iostream>
 
 #include "Animal.hpp"
 #include "Cat.hpp"
 #include "Dog.hpp"
 
-int main()
-{
+int main() {
 	Animal* animalCat = new Cat();
 	Animal* animalDog = new Dog();
 	animalCat->makeSound();

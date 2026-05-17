@@ -4,10 +4,8 @@
 
 class AForm;
 
-class Intern
-{
+class Intern {
 private:
-
 public:
 	Intern() = default;
 	Intern(const Intern& other) = default;

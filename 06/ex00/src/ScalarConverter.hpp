@@ -2,8 +2,7 @@
 
 #include <string>
 
-class ScalarConverter
-{
+class ScalarConverter {
 private:
 	ScalarConverter() = delete;
 	ScalarConverter(const ScalarConverter& other) = delete;

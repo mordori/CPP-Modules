@@ -1,5 +1,5 @@
 CompileFlags:
-    Add: [-Iinc, -Iutils, -std=c++20, -Wall, -Wextra, -Werror]
+    Add: [-Iinc, -Iutils, -std=c++23, -Wall, -Wextra, -Werror]
 
 Diagnostics:
     UnusedIncludes: Strict

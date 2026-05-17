@@ -1,17 +1,16 @@
 #include "Zombie.hpp"
 
-#include <string>
 #include <iostream>
+#include <string>
 
-Zombie::~Zombie()
-{
+Zombie::~Zombie() {
 	std::cout << "Destructor: " << name << '\n';
 }
 
-void Zombie::announce()
-{
+void Zombie::announce() {
 	std::cout << name << ": BraiiiiiiinnnzzzZ.." << '\n';
 }
 
-void Zombie::setName(const std::string& n)
-{ name = n; }
+void Zombie::setName(const std::string& n) {
+	name = n;
+}

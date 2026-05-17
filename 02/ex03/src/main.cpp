@@ -5,8 +5,7 @@
 
 void test(Point const a, Point const b, Point const c, Point const p);
 
-int main()
-{
+int main() {
 	Point a{ 1.0f, 1.0f };
 	Point b{ 3.0f, 1.0f };
 	Point c{ 2.0f, 3.0f };
@@ -38,7 +37,6 @@ int main()
 	return 0;
 }
 
-void test(Point const a, Point const b, Point const c, Point const p)
-{
+void test(Point const a, Point const b, Point const c, Point const p) {
 	std::cout << (bsp(a, b, c, p) ? "inside" : "outside") << '\n';
 }

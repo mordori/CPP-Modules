@@ -7,12 +7,10 @@
 
 #include "Bureaucrat.hpp"
 
-RobotomyRequestForm::RobotomyRequestForm(std::string target) :
-	AForm{ "Robotomy Request Form", std::move(target), 72, 45 }
-{}
+RobotomyRequestForm::RobotomyRequestForm(std::string target)
+	: AForm{ "Robotomy Request Form", std::move(target), 72, 45 } {}
 
-void RobotomyRequestForm::execute(const Bureaucrat& executor) const
-{
+void RobotomyRequestForm::execute(const Bureaucrat& executor) const {
 	static std::mt19937 mt{ std::random_device{}() };
 
 	AForm::execute(executor);

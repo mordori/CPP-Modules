@@ -7,23 +7,20 @@
 
 void executeCommand(std::string_view cmd, PhoneBook& pb);
 
-int main()
-{
+int main() {
 	PhoneBook pb{};
 	std::string cmd{};
 
 	clearTerminal();
 	std::cout << '\n' << "PHONEBOOK" << "\n\n";
-	while (true)
-	{
+	while (true) {
 		std::cout << "--- Enter a command ---" << '\n';
 		std::cout << "[ADD, SEARCH, EXIT]" << "\n\n";
 		extractInputTo(cmd, "> ");
 		InputState state = validateExtractedInput();
 		if (state == InputState::IO_CLOSURE)
 			std::exit(0);
-		else if (state == InputState::SUCCESS)
-		{
+		else if (state == InputState::SUCCESS) {
 			clearTerminal();
 			std::cout << '\n';
 			executeCommand(cmd, pb);
@@ -32,8 +29,7 @@ int main()
 	return 0;
 }
 
-void executeCommand(std::string_view cmd, PhoneBook& pb)
-{
+void executeCommand(std::string_view cmd, PhoneBook& pb) {
 	if (cmd == "ADD")
 		pb.addContact();
 	else if (cmd == "SEARCH")

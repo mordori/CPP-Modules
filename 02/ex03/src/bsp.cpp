@@ -1,8 +1,7 @@
-#include "Point.hpp"
 #include "Fixed.hpp"
+#include "Point.hpp"
 
-bool bsp(Point const a, Point const b, Point const c, Point const point)
-{
+bool bsp(Point const a, Point const b, Point const c, Point const point) {
 	const Fixed minX{ Fixed::min(Fixed::min(a.getX(), b.getX()), c.getX()) };
 	const Fixed minY{ Fixed::min(Fixed::min(a.getY(), b.getY()), c.getY()) };
 	const Fixed maxX{ Fixed::max(Fixed::max(a.getX(), b.getX()), c.getX()) };

@@ -4,14 +4,15 @@
 #include "iter.hpp"
 
 template <typename T>
-void printT(const T& t)
-{ std::cout << t << '\n'; }
+void printT(const T& t) {
+	std::cout << t << '\n';
+}
 
-void increment(int& i)
-{ ++i; }
+void increment(int& i) {
+	++i;
+}
 
-int main()
-{
+int main() {
 	int ints[3] = { 0, 1, 2 };
 	iter(ints, 3, increment);
 	iter(ints, 3, printT<int>);

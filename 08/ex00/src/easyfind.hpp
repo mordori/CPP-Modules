@@ -1,10 +1,11 @@
 #pragma once
 
 #include <algorithm>
+#include <concepts>
+#include <ranges>
 
-template <typename T, std::is_same<T, std::array>>
-static constexpr bool easyfind(T container, int value)
-{
-	auto result{ std::find(container.begin(), container.end(), value) };
-	return result == container.begin();
+template <std::ranges::range T>
+	requires std::same_as<std::ranges::range_value_t<T>, int>
+auto easyfind(T& container, int value) {
+	return std::ranges::find(container, value);
 }

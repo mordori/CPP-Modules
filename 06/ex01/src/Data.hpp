@@ -1,7 +1,6 @@
 #pragma once
 
-struct Data
-{
+struct Data {
 	char m_char{};
 	int m_int{};
 };

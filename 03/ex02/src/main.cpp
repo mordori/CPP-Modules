@@ -1,13 +1,12 @@
-#include <string>
 #include <iostream>
+#include <string>
 
 #include "ClapTrap.hpp"
-#include "ScavTrap.hpp"
 #include "FragTrap.hpp"
+#include "ScavTrap.hpp"
 
-int main()
-{
-	const std::string dummy{ "Dummy"};
+int main() {
+	const std::string dummy{ "Dummy" };
 
 	{
 		ClapTrap clap{ "Clap" };

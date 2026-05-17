@@ -1,12 +1,11 @@
 #pragma once
 
-#include <stdexcept>
-#include <string>
 #include <cstddef>
 #include <iosfwd>
+#include <stdexcept>
+#include <string>
 
-class Bureaucrat
-{
+class Bureaucrat {
 private:
 	const std::string m_name{};
 	std::size_t m_grade{};
@@ -16,11 +15,13 @@ private:
 	Bureaucrat& operator=(const Bureaucrat& other) = delete;
 
 public:
-	struct GradeTooHighException : public std::out_of_range
-	{ GradeTooHighException(const std::string& msg); };
+	struct GradeTooHighException : public std::out_of_range {
+		GradeTooHighException(const std::string& msg);
+	};
 
-	struct GradeTooLowException : public std::out_of_range
-	{ GradeTooLowException(const std::string& msg); };
+	struct GradeTooLowException : public std::out_of_range {
+		GradeTooLowException(const std::string& msg);
+	};
 
 	Bureaucrat(std::string name, std::size_t grade);
 	Bureaucrat(const Bureaucrat& other) = default;

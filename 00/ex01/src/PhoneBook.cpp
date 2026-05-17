@@ -1,23 +1,21 @@
 #include "PhoneBook.hpp"
 
 #include <cstddef>
-#include <iostream>
 #include <iomanip>
+#include <iostream>
 #include <optional>
 #include <string>
 
 #include "io.hpp"
 
-PhoneBook::PhoneBook(const PhoneBook& other) :
-	m_index{ other.m_index },
-	m_addedContacts{ other.m_addedContacts }
-{
+PhoneBook::PhoneBook(const PhoneBook& other)
+	: m_index{ other.m_index }
+	, m_addedContacts{ other.m_addedContacts } {
 	for (std::size_t i{}; i < other.m_addedContacts; ++i)
 		m_contacts[i] = other.m_contacts[i];
 }
 
-PhoneBook& PhoneBook::operator=(const PhoneBook& other)
-{
+PhoneBook& PhoneBook::operator=(const PhoneBook& other) {
 	if (this == &other)
 		return *this;
 	m_index = other.m_index;
@@ -27,8 +25,7 @@ PhoneBook& PhoneBook::operator=(const PhoneBook& other)
 	return *this;
 }
 
-void PhoneBook::addContact()
-{
+void PhoneBook::addContact() {
 	std::cout << "--- Adding New Contact ---" << "\n\n";
 	std::string firstName{}, lastName{}, nickname{}, phoneNumber{}, darkestSecret{};
 	extractInputTo(firstName, "First Name: ");
@@ -44,13 +41,10 @@ void PhoneBook::addContact()
 		++m_addedContacts;
 
 	clearTerminal();
-	std::cout << '\n'
-		<< contact.getFirstName() << " " << contact.getLastName()
-		<< " added to contacts!" << "\n\n";
+	std::cout << '\n' << contact.getFirstName() << " " << contact.getLastName() << " added to contacts!" << "\n\n";
 }
 
-void PhoneBook::searchContact()
-{
+void PhoneBook::searchContact() {
 	showContacts();
 	std::cout << '\n';
 	std::optional<std::size_t> input{ extractInput("Enter index: ") };
@@ -68,8 +62,7 @@ void PhoneBook::searchContact()
 		displayContactDetails(static_cast<std::size_t>(index));
 }
 
-void PhoneBook::showContacts()
-{
+void PhoneBook::showContacts() {
 	std::cout << "--- Contact List ---" << "\n\n";
 	IosFlags flags{ std::cout };
 	std::cout << std::right;
@@ -77,24 +70,21 @@ void PhoneBook::showContacts()
 		showContact(m_contacts[i], i);
 }
 
-void PhoneBook::showContact(const Contact& contact, std::size_t index)
-{
+void PhoneBook::showContact(const Contact& contact, std::size_t index) {
 	std::cout << std::setw(static_cast<int>(COL_WIDTH)) << index + 1 << '|';
 	displayField(contact.getFirstName(), '|');
 	displayField(contact.getLastName(), '|');
 	displayField(contact.getNickname(), '\n');
 }
 
-void PhoneBook::displayField(std::string_view field, char delimiter)
-{
+void PhoneBook::displayField(std::string_view field, char delimiter) {
 	if (field.length() <= COL_WIDTH)
 		std::cout << std::setw(static_cast<int>(COL_WIDTH)) << field << delimiter;
 	else
 		std::cout << std::string_view(field.data(), 9) << '.' << delimiter;
 }
 
-void PhoneBook::displayContactDetails(std::size_t index)
-{
+void PhoneBook::displayContactDetails(std::size_t index) {
 	std::cout << "--- Contact Details ---" << "\n\n";
 	std::cout << m_contacts[index - 1] << '\n';
 }

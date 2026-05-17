@@ -1,7 +1,6 @@
 #include "Zombie.hpp"
 
-int main()
-{
+int main() {
 	Zombie* john = newZombie("John");
 	john->announce();
 	randomChump("Jane");

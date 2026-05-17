@@ -1,18 +1,17 @@
-#include <iostream>
-#include <exception>
 #include <cstddef>
+#include <exception>
+#include <iostream>
 
 #include "Animal.hpp"
 #include "Cat.hpp"
 #include "Dog.hpp"
 
-int main()
-{
+int main() {
 	{
 		Animal* animals[4];
 		for (size_t i{}; i < 2; ++i)
 			animals[i] = new Cat();
-		for (size_t i{2}; i < 4; ++i)
+		for (size_t i{ 2 }; i < 4; ++i)
 			animals[i] = new Dog();
 		for (auto a : animals)
 			delete a;
@@ -27,7 +26,7 @@ int main()
 		sleepyCat.getBrain().listIdeas();
 		std::cout << "GrumpyCat ideas: \n";
 		grumpyCat.getBrain().listIdeas();
-		Cat copyCat{grumpyCat};
+		Cat copyCat{ grumpyCat };
 		std::cout << "CopyCat ideas: \n";
 		copyCat.getBrain().listIdeas();
 		copyCat = sleepyCat;

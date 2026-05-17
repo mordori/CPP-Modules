@@ -1,5 +1,5 @@
-#include <iostream>
 #include <exception>
+#include <iostream>
 
 #include "Animal.hpp"
 #include "Cat.hpp"
@@ -7,8 +7,7 @@
 #include "WrongAnimal.hpp"
 #include "WrongCat.hpp"
 
-int main()
-{
+int main() {
 	{
 		const Animal* animal = new Animal();
 		const Animal* dog = new Dog();

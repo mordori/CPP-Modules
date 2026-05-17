@@ -1,9 +1,7 @@
 #pragma once
 
-class Base
-{
+class Base {
 private:
-
 public:
 	virtual ~Base() = default;
 };

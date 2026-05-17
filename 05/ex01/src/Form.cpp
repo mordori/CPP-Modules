@@ -1,34 +1,30 @@
 #include "Form.hpp"
 
-#include <iostream>
-#include <string>
 #include <cstddef>
-#include <utility>
+#include <iostream>
 #include <stdexcept>
+#include <string>
+#include <utility>
 
 #include "Bureaucrat.hpp"
 
-Form::GradeTooHighException::GradeTooHighException(const std::string& msg) :
-	std::out_of_range{ msg }
-{}
+Form::GradeTooHighException::GradeTooHighException(const std::string& msg)
+	: std::out_of_range{ msg } {}
 
-Form::GradeTooLowException::GradeTooLowException(const std::string& msg) :
-	std::out_of_range{ msg }
-{}
+Form::GradeTooLowException::GradeTooLowException(const std::string& msg)
+	: std::out_of_range{ msg } {}
 
-Form::Form(std::string name, std::size_t signGrade, std::size_t execGrade) :
-	m_name{ std::move(name) },
-	m_signGrade{ signGrade },
-	m_execGrade{ execGrade }
-{
+Form::Form(std::string name, std::size_t signGrade, std::size_t execGrade)
+	: m_name{ std::move(name) }
+	, m_signGrade{ signGrade }
+	, m_execGrade{ execGrade } {
 	if (signGrade < 1 || execGrade < 1)
 		throw Form::GradeTooHighException{ "Form::Construction aborted: " + m_name + ": Grade is too high!" };
 	if (signGrade > 150 || execGrade > 150)
 		throw Form::GradeTooLowException{ "Form::Construction aborted: " + m_name + ": Grade is too low!" };
 }
 
-void Form::beSigned(const Bureaucrat& bureaucrat)
-{
+void Form::beSigned(const Bureaucrat& bureaucrat) {
 	if (m_isSigned)
 		throw std::logic_error{ "the form is already signed" };
 	if (bureaucrat.getGrade() > m_signGrade)
@@ -36,23 +32,24 @@ void Form::beSigned(const Bureaucrat& bureaucrat)
 	m_isSigned = true;
 }
 
-const std::string& Form::getName() const
-{ return m_name; }
+const std::string& Form::getName() const {
+	return m_name;
+}
 
-bool Form::getIsSigned() const
-{ return m_isSigned; }
+bool Form::getIsSigned() const {
+	return m_isSigned;
+}
 
-std::size_t Form::getSignGrade() const
-{ return m_signGrade; }
+std::size_t Form::getSignGrade() const {
+	return m_signGrade;
+}
 
-std::size_t Form::getExecGrade() const
-{ return m_execGrade; }
+std::size_t Form::getExecGrade() const {
+	return m_execGrade;
+}
 
-std::ostream& operator<<(std::ostream& os, const Form& form)
-{
-	os << form.getName() << ", form "
-		<< (form.getIsSigned() ? "(SIGNED)" : "(UNSIGNED)")
-		<< ". Grade to sign: " << form.getSignGrade()
-		<< ". Grade to execute: " << form.getExecGrade() << ".\n";
+std::ostream& operator<<(std::ostream& os, const Form& form) {
+	os << form.getName() << ", form " << (form.getIsSigned() ? "(SIGNED)" : "(UNSIGNED)")
+	   << ". Grade to sign: " << form.getSignGrade() << ". Grade to execute: " << form.getExecGrade() << ".\n";
 	return os;
 }

@@ -1,11 +1,10 @@
 #include <cstdint>
 #include <iostream>
 
-#include "Serializer.hpp"
 #include "Data.hpp"
+#include "Serializer.hpp"
 
-int main()
-{
+int main() {
 	Data data{ 'a', 1 };
 	std::cout << &data << '\n';
 	uintptr_t ptr{ Serializer::serialize(&data) };

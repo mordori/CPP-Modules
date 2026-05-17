@@ -2,9 +2,8 @@
 
 #include "ClapTrap.hpp"
 
-int main()
-{
-	const std::string dummy{ "Dummy"};
+int main() {
+	const std::string dummy{ "Dummy" };
 
 	ClapTrap clap{ "Clap" };
 	clap.attack(dummy);

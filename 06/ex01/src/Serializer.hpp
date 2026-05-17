@@ -4,8 +4,7 @@
 
 struct Data;
 
-class Serializer
-{
+class Serializer {
 private:
 	Serializer() = delete;
 	Serializer(const Serializer& other) = delete;

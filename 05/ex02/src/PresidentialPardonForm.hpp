@@ -1,11 +1,10 @@
 #pragma once
 
-#include "AForm.hpp"
-
 #include <string>
 
-class PresidentialPardonForm : public AForm
-{
+#include "AForm.hpp"
+
+class PresidentialPardonForm : public AForm {
 private:
 	PresidentialPardonForm() = delete;
 

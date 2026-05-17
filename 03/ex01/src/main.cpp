@@ -1,12 +1,11 @@
-#include <string>
 #include <iostream>
+#include <string>
 
 #include "ClapTrap.hpp"
 #include "ScavTrap.hpp"
 
-int main()
-{
-	const std::string dummy{ "Dummy"};
+int main() {
+	const std::string dummy{ "Dummy" };
 
 	{
 		ScavTrap scav{ "Scav" };
@@ -37,7 +36,7 @@ int main()
 
 	{
 		ScavTrap scav{ "Scav" };
-		ClapTrap clap{ scav };		// Object slicing
+		ClapTrap clap{ scav };	// Object slicing
 		scav.takeDamage(1000);
 		scav.attack(dummy);
 		clap.attack(dummy);

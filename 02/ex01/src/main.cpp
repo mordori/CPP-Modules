@@ -2,8 +2,7 @@
 
 #include "Fixed.hpp"
 
-int main()
-{
+int main() {
 	Fixed a;
 	const Fixed b{ 10 };
 	const Fixed c{ 42.42f };

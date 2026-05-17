@@ -7,8 +7,7 @@
 
 class Bureaucrat;
 
-class AForm
-{
+class AForm {
 private:
 	const std::string m_name{};
 	const std::string m_target{};
@@ -21,11 +20,13 @@ private:
 	AForm& operator=(const AForm& other) = delete;
 
 protected:
-	struct GradeTooHighException : public std::out_of_range
-	{ GradeTooHighException(const std::string& msg); };
+	struct GradeTooHighException : public std::out_of_range {
+		GradeTooHighException(const std::string& msg);
+	};
 
-	struct GradeTooLowException : public std::out_of_range
-	{ GradeTooLowException(const std::string& msg); };
+	struct GradeTooLowException : public std::out_of_range {
+		GradeTooLowException(const std::string& msg);
+	};
 
 	AForm(std::string name, std::string target, std::size_t signGrade, std::size_t execGrade);
 	AForm(const AForm& other) = default;

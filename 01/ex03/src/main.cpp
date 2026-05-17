@@ -1,9 +1,8 @@
-#include "Weapon.hpp"
 #include "HumanA.hpp"
 #include "HumanB.hpp"
+#include "Weapon.hpp"
 
-int main()
-{
+int main() {
 	{
 		Weapon club = Weapon("crude spiked club");
 		HumanA bob("Bob", club);

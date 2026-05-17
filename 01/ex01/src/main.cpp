@@ -1,7 +1,6 @@
 #include "Zombie.hpp"
 
-int main()
-{
+int main() {
 	constexpr int size{ 10 };
 	Zombie* horde = zombieHorde(size, "John");
 	for (int i{}; i < size; ++i)

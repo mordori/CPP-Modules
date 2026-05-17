@@ -1,20 +1,14 @@
 #pragma once
 
-#include <string>
-#include <string_view>
-#include <optional>
 #include <cstddef>
 #include <ios>
+#include <optional>
+#include <string>
+#include <string_view>
 
-enum class InputState
-{
-	SUCCESS,
-	INVALID,
-	IO_CLOSURE
-};
+enum class InputState { SUCCESS, INVALID, IO_CLOSURE };
 
-struct IosFlags
-{
+struct IosFlags {
 	std::ios_base& m_stream;
 	std::ios_base::fmtflags m_origFlags;
 
