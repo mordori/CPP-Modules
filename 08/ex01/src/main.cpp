@@ -3,7 +3,7 @@
 #include <limits>
 #include <list>
 #include <random>
-#include <ranges>
+// #include <ranges>
 #include <vector>
 
 #include "Span.hpp"
@@ -42,13 +42,16 @@ int main() {
 	std::cout << '\n';
 
 	try {
-		std::cout << "TEST: longest possible span (UINT_MAX " << std::numeric_limits<unsigned int>::max() << ")\n";
+		std::cout << "TEST: longest possible span [INT_MIN, INT_MAX] (UINT_MAX "
+				  << std::numeric_limits<unsigned int>::max() << ")\n";
 		Span span{ 3 };
-		span.addNumber(0);
 		span.addNumber(std::numeric_limits<int>::min());
 		span.addNumber(std::numeric_limits<int>::max());
 		std::cout << "Shortest span: " << span.shortestSpan() << '\n';
 		std::cout << "Longest span: " << span.longestSpan() << '\n';
+		span.addNumber(0);
+		std::cout << "Added 0 to the container.\n";
+		std::cout << "Shortest span: " << span.shortestSpan() << '\n';
 	} catch (const std::exception& e) {
 		std::cout << "Error: " << e.what() << '\n';
 	}
@@ -60,8 +63,12 @@ int main() {
 	try {
 		std::cout << "TEST: add vector to span\n";
 		Span span{ 10000 };
-		auto view{ std::views::iota(0, 10000) | std::views::transform([&](int) { return dist(mt); }) };
-		std::vector<int> vector_{ view.begin(), view.end() };
+		// std=c++23
+		// auto view{ std::views::iota(0, 10000) | std::views::transform([&](int) { return dist(mt); }) };
+		// std::vector<int> vector_{ view.begin(), view.end() };
+		std::vector<int> vector_(10000);
+		for (auto& i : vector_)
+			i = dist(mt);
 		span.addNumber(vector_);
 		std::cout << "Shortest span: " << span.shortestSpan() << '\n';
 		std::cout << "Longest span: " << span.longestSpan() << '\n';
@@ -74,8 +81,9 @@ int main() {
 	try {
 		std::cout << "TEST: add list to span\n";
 		Span span{ 10000 };
-		auto view{ std::views::iota(0, 10000) | std::views::transform([&](int) { return dist(mt); }) };
-		std::list<int> list_{ view.begin(), view.end() };
+		std::list<int> list_(10000);
+		for (auto& i : list_)
+			i = dist(mt);
 		span.addNumber(list_);
 		std::cout << "Shortest span: " << span.shortestSpan() << '\n';
 		std::cout << "Longest span: " << span.longestSpan() << '\n';

@@ -1,7 +1,8 @@
 #include "Span.hpp"
 
 #include <algorithm>
-#include <ranges>
+#include <limits>
+// #include <ranges>
 #include <stdexcept>
 #include <vector>
 
@@ -30,8 +31,19 @@ unsigned int Span::shortestSpan() const {
 		std::ranges::sort(_data);
 		_isSorted = true;
 	}
-	auto view = _data | std::views::adjacent_transform<2>([](int a, int b) {
-		return static_cast<unsigned int>(b) - static_cast<unsigned int>(a);
-	});
-	return std::ranges::min(view);
+	auto it{ _data.begin() };
+	auto next{ it + 1 };
+	unsigned int shortest{ std::numeric_limits<unsigned int>::max() };
+	while (next != _data.end()) {
+		shortest = std::min(shortest, static_cast<unsigned int>(*next) - static_cast<unsigned int>(*it));
+		++it;
+		++next;
+	}
+	return shortest;
+
+	// std=c++23
+	// auto view = _data | std::views::adjacent_transform<2>([](int a, int b) {
+	// 	return static_cast<unsigned int>(b) - static_cast<unsigned int>(a);
+	// });
+	// return std::ranges::min(view);
 }

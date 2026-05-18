@@ -1,7 +1,7 @@
 NAME		:=program
 
 CXX			:=c++
-STD			:=-std=c++23
+STD			:=-std=c++20
 WFLAGS		:=-Wall -Wextra -Werror -Wpedantic -Wunreachable-code -Wshadow \
 			-Wnull-dereference -Wfloat-equal -Wcast-align -Wformat=2 \
 			-Wswitch-enum -Wundef -Wconversion -Wsign-conversion \
