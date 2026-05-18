@@ -12,8 +12,8 @@ ConstructorInitializerIndentWidth: 4
 # Alignment
 PointerAlignment: Left
 ReferenceAlignment: Left
-AlignAfterOpenBracket: BlockIndent # Forces lambdas/args to use a standard tab indent instead of space-aligning to the '('
-AlignOperands: DontAlign # Stops it from space-aligning chained operators like the '|' pipe
+AlignAfterOpenBracket: BlockIndent
+AlignOperands: DontAlign
 AlignConsecutiveAssignments: None
 AlignConsecutiveDeclarations: None
 AlignTrailingComments: true

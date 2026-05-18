@@ -30,8 +30,8 @@ unsigned int Span::shortestSpan() const {
 		std::ranges::sort(_data);
 		_isSorted = true;
 	}
-	auto spans = _data | std::views::adjacent_transform<2>([](int a, int b) {
+	auto view = _data | std::views::adjacent_transform<2>([](int a, int b) {
 		return static_cast<unsigned int>(b) - static_cast<unsigned int>(a);
 	});
-	return std::ranges::min(spans);
+	return std::ranges::min(view);
 }

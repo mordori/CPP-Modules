@@ -10,6 +10,7 @@
 
 int main() {
 	try {
+		std::cout << "TEST: normal\n";
 		Span span{ 3 };
 		span.addNumber(1);
 		span.addNumber(-1);
@@ -22,6 +23,7 @@ int main() {
 	std::cout << '\n';
 
 	try {
+		std::cout << "TEST: construction error\n";
 		Span span{ 0 };
 	} catch (const std::exception& e) {
 		std::cout << "Error: " << e.what() << '\n';
@@ -29,6 +31,7 @@ int main() {
 	std::cout << '\n';
 
 	try {
+		std::cout << "TEST: over maximum capacity\n";
 		Span span{ 2 };
 		span.addNumber(-1);
 		span.addNumber(9);
@@ -39,6 +42,7 @@ int main() {
 	std::cout << '\n';
 
 	try {
+		std::cout << "TEST: longest possible span (UINT_MAX " << std::numeric_limits<unsigned int>::max() << ")\n";
 		Span span{ 3 };
 		span.addNumber(0);
 		span.addNumber(std::numeric_limits<int>::min());
@@ -54,6 +58,7 @@ int main() {
 	std::uniform_int_distribution dist{ std::numeric_limits<int>::min(), std::numeric_limits<int>::max() };
 
 	try {
+		std::cout << "TEST: add vector to span\n";
 		Span span{ 10000 };
 		auto view{ std::views::iota(0, 10000) | std::views::transform([&](int) { return dist(mt); }) };
 		std::vector<int> vector_{ view.begin(), view.end() };
@@ -67,6 +72,7 @@ int main() {
 	std::cout << '\n';
 
 	try {
+		std::cout << "TEST: add list to span\n";
 		Span span{ 10000 };
 		auto view{ std::views::iota(0, 10000) | std::views::transform([&](int) { return dist(mt); }) };
 		std::list<int> list_{ view.begin(), view.end() };
