@@ -1,17 +1,17 @@
-#include <cstddef>
+#include <exception>
 #include <iostream>
 #include <string>
 
-#include "files.hpp"
-#include "strings.hpp"
+#include "../utils/files.hpp"
+#include "../utils/strings.hpp"
 
-bool run(int argc, char **argv);
+bool run(int argc, char** argv);
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
 	try {
 		if (!run(argc, argv))
 			return 1;
-	} catch (const std::exception &e) {
+	} catch (const std::exception& e) {
 		std::cerr << e.what() << '\n';
 		return 1;
 	} catch (...) {
@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
 	return 0;
 }
 
-bool run(int argc, char **argv) {
+bool run(int argc, char** argv) {
 	if (argc != 4) {
 		std::cerr << "Error: Usage: ./replace <fileName> <s1> <s2>" << '\n';
 		return false;
@@ -35,7 +35,5 @@ bool run(int argc, char **argv) {
 	if (!readFileToString(src, fileName))
 		return false;
 	replaceSubString(src, s1, s2);
-	if (!writeStringToFile(src, fileName + ".replace"))
-		return false;
-	return true;
+	return writeStringToFile(src, fileName + ".replace");
 }

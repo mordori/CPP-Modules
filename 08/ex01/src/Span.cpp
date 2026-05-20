@@ -20,6 +20,8 @@ void Span::addNumber(int number) {
 }
 
 unsigned int Span::longestSpan() const {
+	if (_data.size() < 2)
+		throw std::logic_error{ "Not enough elements to find a span!" };
 	auto [min, max]{ std::ranges::minmax(_data) };
 	return static_cast<unsigned int>(max) - static_cast<unsigned int>(min);
 }
@@ -31,10 +33,10 @@ unsigned int Span::shortestSpan() const {
 		std::ranges::sort(_data);
 		_isSorted = true;
 	}
-	auto it{ _data.begin() };
+	auto it{ _data.cbegin() };
 	auto next{ it + 1 };
 	unsigned int shortest{ std::numeric_limits<unsigned int>::max() };
-	while (next != _data.end()) {
+	while (next != _data.cend()) {
 		shortest = std::min(shortest, static_cast<unsigned int>(*next) - static_cast<unsigned int>(*it));
 		++it;
 		++next;

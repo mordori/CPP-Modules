@@ -1,6 +1,7 @@
 #include "Animal.hpp"
 
 #include <iostream>
+#include <string>
 
 Animal::Animal() {
 	std::cout << "\033[1;34mAnimal::Constructor\033[0m\n";

@@ -23,6 +23,16 @@ int main() {
 	std::cout << '\n';
 
 	try {
+		std::cout << "TEST: Not enough elements\n";
+		Span span{ 2 };
+		span.addNumber(1);
+		std::cout << "Shortest span: " << span.shortestSpan() << '\n';
+	} catch (const std::exception& e) {
+		std::cout << "Error: " << e.what() << '\n';
+	}
+	std::cout << '\n';
+
+	try {
 		std::cout << "TEST: construction error\n";
 		Span span{ 0 };
 	} catch (const std::exception& e) {
@@ -69,7 +79,7 @@ int main() {
 		std::vector<int> vector_(10000);
 		for (auto& i : vector_)
 			i = dist(mt);
-		span.addNumber(vector_);
+		span.insertContainer(vector_);
 		std::cout << "Shortest span: " << span.shortestSpan() << '\n';
 		std::cout << "Longest span: " << span.longestSpan() << '\n';
 		span.addNumber(1);
@@ -84,7 +94,7 @@ int main() {
 		std::list<int> list_(10000);
 		for (auto& i : list_)
 			i = dist(mt);
-		span.addNumber(list_);
+		span.insertContainer(list_);
 		std::cout << "Shortest span: " << span.shortestSpan() << '\n';
 		std::cout << "Longest span: " << span.longestSpan() << '\n';
 		span.addNumber(1);

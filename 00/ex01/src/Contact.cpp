@@ -7,10 +7,8 @@
 
 #include "../utils/io.hpp"
 
-Contact::Contact(
-	std::string firstName, std::string lastName, std::string nickname, std::string phoneNumber,
-	std::string darkestSecret
-)
+Contact::Contact(std::string firstName, std::string lastName, std::string nickname, std::string phoneNumber,
+	std::string darkestSecret)
 	: m_firstName{ std::move(firstName) }
 	, m_lastName{ std::move(lastName) }
 	, m_nickname{ std::move(nickname) }

@@ -18,6 +18,7 @@ Checks: >
   -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
   -readability-identifier-length,
   -readability-implicit-bool-conversion,
+  -readability-uppercase-literal-suffix,
 
 # FORCE clang-tidy to report warnings found in header files
 HeaderFilterRegex: '.*\.hpp$'

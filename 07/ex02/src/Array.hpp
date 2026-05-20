@@ -20,13 +20,9 @@ public:
 		for (std::size_t i{}; i < m_n; ++i)
 			m_data[i] = other.m_data[i];
 	}
-	~Array() {
-		delete[] m_data;
-	}
+	~Array() { delete[] m_data; }
 
-	[[nodiscard]] unsigned int size() const {
-		return m_n;
-	}
+	[[nodiscard]] unsigned int size() const { return m_n; }
 
 	Array& operator=(const Array& other) {
 		if (this == &other)

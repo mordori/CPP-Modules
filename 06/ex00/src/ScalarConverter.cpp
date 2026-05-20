@@ -1,5 +1,6 @@
 #include "ScalarConverter.hpp"
 
+#include <algorithm>
 #include <cctype>
 #include <charconv>
 #include <cmath>
@@ -9,25 +10,23 @@
 #include <sstream>
 #include <string>
 #include <string_view>
+#include <system_error>
 #include <type_traits>
 
+namespace {
 enum class LiteralType { CHAR, INT, FLOAT, DOUBLE, INVALID };
 
 #pragma region Type Detection
 constexpr bool isChar(std::string_view sv) {
-	if (sv.length() == 1 && !std::isdigit(static_cast<unsigned char>(sv.front())))
-		return true;
-	return false;
+	return sv.length() == 1 && !std::isdigit(static_cast<unsigned char>(sv.front()));
 }
 
 constexpr bool isInt(std::string_view sv) {
 	if (sv.front() == '-' || sv.front() == '+')
 		sv.remove_prefix(1);
-	for (char c : sv) {
-		if (!std::isdigit(static_cast<unsigned char>(c)))
-			return false;
-	}
-	return true;
+	return std::ranges::all_of(sv, [](char c) {
+		return std::isdigit(static_cast<unsigned char>(c));
+	});
 }
 
 constexpr bool isDouble(std::string_view sv) {
@@ -119,7 +118,7 @@ void printChar(double d, bool isPseudoScalar) {
 		std::cout << "char: impossible" << '\n';
 		return;
 	}
-	char c = static_cast<char>(d);
+	auto c{ static_cast<char>(d) };
 	if (std::isprint(static_cast<unsigned char>(c)))
 		std::cout << "char: " << c << '\n';
 	else
@@ -131,7 +130,7 @@ void printInt(double d, bool isPseudoScalar) {
 		std::cout << "int: impossible" << '\n';
 		return;
 	}
-	int i = static_cast<int>(d);
+	auto i{ static_cast<int>(d) };
 	std::cout << "int: " << i << '\n';
 }
 
@@ -149,7 +148,7 @@ void printFloat(double d, bool isPseudoScalar) {
 		std::cout << "float: impossible" << '\n';
 		return;
 	}
-	float f = static_cast<float>(d);
+	auto f{ static_cast<float>(d) };
 	std::cout << "float: " << f;
 	printZeroDecimal(f, isPseudoScalar);
 	std::cout << "f\n";
@@ -163,7 +162,7 @@ void printDouble(double d, bool isPseudoScalar) {
 
 template <typename T>
 void printConversions(T value) {
-	double d = static_cast<double>(value);
+	auto d{ static_cast<double>(value) };
 	bool isPseudoScalar{};
 	if constexpr (std::is_floating_point_v<T>)
 		isPseudoScalar = (std::isnan(value) || std::isinf(value));
@@ -181,6 +180,7 @@ constexpr void buildConversions(std::string_view sv) {
 		printConversions(value);
 	else
 		std::cerr << "Error: Invalid input.\n";
+}
 }
 
 void ScalarConverter::convert(const std::string& str) {

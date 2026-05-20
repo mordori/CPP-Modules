@@ -13,10 +13,8 @@ private:
 
 public:
 	Contact() = default;
-	Contact(
-		std::string firstName, std::string lastName, std::string nickname, std::string phoneNumber,
-		std::string darkestSecret
-	);
+	Contact(std::string firstName, std::string lastName, std::string nickname, std::string phoneNumber,
+		std::string darkestSecret);
 
 	void setFirstName(const std::string& firstName);
 	void setLastName(const std::string& lastName);

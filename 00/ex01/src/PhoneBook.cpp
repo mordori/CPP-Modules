@@ -5,8 +5,10 @@
 #include <iostream>
 #include <optional>
 #include <string>
+#include <string_view>
 
-#include "io.hpp"
+#include "../utils/io.hpp"
+#include "Contact.hpp"
 
 PhoneBook::PhoneBook(const PhoneBook& other)
 	: m_index{ other.m_index }
@@ -59,7 +61,7 @@ void PhoneBook::searchContact() {
 	else if (index > m_addedContacts)
 		std::cout << "You only have " << m_addedContacts << " contact(s) added." << "\n\n";
 	else
-		displayContactDetails(static_cast<std::size_t>(index));
+		displayContactDetails(index);
 }
 
 void PhoneBook::showContacts() {

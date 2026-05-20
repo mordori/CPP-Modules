@@ -5,6 +5,16 @@
 
 #include "MutantStack.hpp"
 
+template <typename T>
+void printMutantStack(const MutantStack<T>& mstack) {
+	auto cit = mstack.begin();
+	auto cend = mstack.end();
+	while (cit != cend) {
+		std::cout << *cit << '\n';
+		++cit;
+	}
+}
+
 int main() {
 	{
 		std::cout << "Subject test for MutantStack.\n";
@@ -62,14 +72,9 @@ int main() {
 		mstack.push("2");
 		mstack.push("3");
 		mstack.push("Sauna!");
-		std::cout << "Forward\n";
-		auto cit = mstack.cbegin();
-		auto cend = mstack.cend();
-		while (cit != cend) {
-			std::cout << *cit << '\n';
-			++cit;
-		}
-		std::cout << "\nBackward\n";
+		std::cout << "Forward:\n";
+		printMutantStack(mstack);
+		std::cout << "\nBackward:\n";
 		auto crit = mstack.crbegin();
 		auto crend = mstack.crend();
 		while (crit != crend) {

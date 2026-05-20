@@ -23,11 +23,11 @@ public:
 
 	template <std::ranges::range T>
 		requires std::same_as<std::ranges::range_value_t<T>, int>
-	void addNumber(const T& container) {
+	void insertContainer(const T& container) {
 		auto size = std::ranges::distance(container);
 		if (static_cast<std::size_t>(size) > static_cast<std::size_t>(_capacity) - _data.size())
 			throw std::length_error{ "Span is at maximum capacity!" };
-		_data.insert(_data.end(), std::ranges::begin(container), std::ranges::end(container));
+		_data.insert(_data.cend(), std::ranges::cbegin(container), std::ranges::cend(container));
 		_isSorted = false;
 	}
 	void addNumber(int number);
