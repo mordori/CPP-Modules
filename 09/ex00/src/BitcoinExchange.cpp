@@ -89,48 +89,48 @@ void parseFile(const std::string& inFile, char delimiter, std::string_view heade
 	while (std::getline(file, line)) {
 		if (line.empty())
 			continue;
-		auto entry{ parseLine(line, delimiter) };
-		func(entry, line);
+		auto data{ parseLine(line, delimiter) };
+		func(data, line);
 	}
 }
 }
 
 void BitcoinExchange::loadDatabase(const std::string& db) {
-	auto insertData = [this](const auto& entry, const std::string& line) {
-		if (!entry.has_value() || !isValidDate(entry->first) || entry->second < 0.0f)
+	auto insertData = [this](const auto& data, const std::string& line) {
+		if (!data.has_value() || !isValidDate(data->first) || data->second < 0.0f)
 			throw std::runtime_error{ "Error: bad format => " + line };
-		_database[std::string{ entry->first }] = entry->second;
+		_database[std::string{ data->first }] = data->second;
 	};
 	parseFile(db, ',', "exchange_rate", insertData);
 }
 
 void BitcoinExchange::processInput(const std::string& input) const {
-	auto processData = [this](const auto& entry, const std::string& line) {
-		if (!entry.has_value()) {
+	auto processData = [this](const auto& data, const std::string& line) {
+		if (!data.has_value()) {
 			std::cerr << "Error: bad format => " << line << '\n';
 			return;
 		}
-		if (entry->second < 0.0f) {
+		if (data->second < 0.0f) {
 			std::cerr << "Error: not a positive number.\n";
 			return;
 		}
-		if (entry->second > 1000.0f) {
+		if (data->second > 1000.0f) {
 			std::cerr << "Error: too large number.\n";
 			return;
 		}
-		if (!isValidDate(entry->first)) {
-			std::cerr << "Error: invalid date => " << entry->first << "\n";
+		if (!isValidDate(data->first)) {
+			std::cerr << "Error: invalid date => " << data->first << "\n";
 			return;
 		}
-		auto it = _database.lower_bound(entry->first);
-		if (it == _database.end() || it->first != entry->first) {
+		auto it = _database.lower_bound(data->first);
+		if (it == _database.end() || it->first != data->first) {
 			if (it == _database.begin()) {
 				std::cerr << "Error: data is older than database.\n";
 				return;
 			}
 			--it;
 		}
-		std::cout << entry->first << " => " << entry->second << " = " << entry->second * it->second << '\n';
+		std::cout << data->first << " => " << data->second << " = " << data->second * it->second << '\n';
 	};
 	parseFile(input, '|', "value", processData);
 }
