@@ -2,6 +2,7 @@
 
 #include <charconv>
 #include <chrono>
+#include <concepts>
 #include <cstddef>
 #include <fstream>
 #include <iostream>
@@ -13,7 +14,9 @@
 #include <utility>
 
 namespace {
-bool isValidDate(std::string_view sv) {
+using floatPair = std::optional<std::pair<std::string_view, float>>;
+
+bool isValidDate(std::string_view sv) noexcept {
 	if (sv.size() != 10 || sv[4] != '-' || sv[7] != '-')
 		return false;
 	int year{}, month{}, day{};
@@ -30,7 +33,7 @@ bool isValidDate(std::string_view sv) {
 	return date.ok();
 }
 
-std::optional<float> convertFloat(std::string_view sv) {
+std::optional<float> convertFloat(std::string_view sv) noexcept {
 	if (sv.empty())
 		return std::nullopt;
 	if (sv.front() == '+')
@@ -42,7 +45,7 @@ std::optional<float> convertFloat(std::string_view sv) {
 	return value;
 }
 
-std::string_view trimWs(std::string_view sv) {
+constexpr std::string_view trimWs(std::string_view sv) noexcept {
 	std::size_t firstChar = sv.find_first_not_of(" \t");
 	if (firstChar == std::string::npos)
 		return {};
@@ -50,7 +53,8 @@ std::string_view trimWs(std::string_view sv) {
 	return sv.substr(firstChar, lastChar - firstChar + 1);
 }
 
-std::optional<std::pair<std::string_view, std::string_view>> parseViews(const std::string& line, char delimiter) {
+std::optional<std::pair<std::string_view, std::string_view>> parseViews(
+	const std::string& line, char delimiter) noexcept {
 	std::size_t delimiterPos{ line.find(delimiter) };
 	if (delimiterPos == std::string::npos)
 		return std::nullopt;
@@ -60,7 +64,7 @@ std::optional<std::pair<std::string_view, std::string_view>> parseViews(const st
 	return std::pair{ dateView, valueView };
 }
 
-std::optional<std::pair<std::string_view, float>> parseLine(const std::string& line, char delimiter) {
+floatPair parseLine(const std::string& line, char delimiter) noexcept {
 	auto views{ parseViews(line, delimiter) };
 	if (!views.has_value())
 		return std::nullopt;
@@ -70,14 +74,14 @@ std::optional<std::pair<std::string_view, float>> parseLine(const std::string& l
 	return std::pair{ views->first, *value };
 }
 
-bool isValidHeader(const std::string& line, char delimiter, std::string_view value) {
+bool isValidHeader(const std::string& line, char delimiter, std::string_view value) noexcept {
 	auto views{ parseViews(line, delimiter) };
 	if (!views.has_value())
 		return false;
 	return (views->first == "date" && views->second == value);
 }
 
-template <typename F>
+template <std::invocable<floatPair, const std::string&> F>
 void parseFile(const std::string& inFile, char delimiter, std::string_view headerValue, F func) {
 	std::ifstream file{ inFile };
 	if (!file.is_open())
@@ -89,14 +93,14 @@ void parseFile(const std::string& inFile, char delimiter, std::string_view heade
 	while (std::getline(file, line)) {
 		if (line.empty())
 			continue;
-		auto data{ parseLine(line, delimiter) };
+		floatPair data{ parseLine(line, delimiter) };
 		func(data, line);
 	}
 }
 }
 
 void BitcoinExchange::loadDatabase(const std::string& db) {
-	auto insertData = [this](const auto& data, const std::string& line) {
+	auto insertData = [this](const floatPair& data, const std::string& line) {
 		if (!data.has_value() || !isValidDate(data->first) || data->second < 0.0f)
 			throw std::runtime_error{ "Error: bad format => " + line };
 		_database[std::string{ data->first }] = data->second;
@@ -105,7 +109,7 @@ void BitcoinExchange::loadDatabase(const std::string& db) {
 }
 
 void BitcoinExchange::processInput(const std::string& input) const {
-	auto processData = [this](const auto& data, const std::string& line) {
+	auto processData = [this](const floatPair& data, const std::string& line) {
 		if (!data.has_value()) {
 			std::cerr << "Error: bad format => " << line << '\n';
 			return;
