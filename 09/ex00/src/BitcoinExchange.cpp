@@ -89,7 +89,7 @@ void parseFile(const std::string& inFile, char delimiter, std::string_view heade
 	std::string line;
 	std::getline(file, line);
 	if (!isValidHeader(line, delimiter, headerValue))
-		std::cerr << "Error: bad header in '" << inFile << '\n';
+		std::cerr << "Error: bad header in '" << inFile << "'\n";
 	while (std::getline(file, line)) {
 		if (line.empty())
 			continue;

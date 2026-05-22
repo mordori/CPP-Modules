@@ -5,7 +5,7 @@
 
 int main(int argc, char** argv) {
 	if (argc != 2) {
-		std::cerr << "Error: expression is required as argument\n";
+		std::cerr << "Error: expression is required as a single argument\n";
 		return 1;
 	}
 	try {
