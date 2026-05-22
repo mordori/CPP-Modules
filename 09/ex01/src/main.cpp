@@ -5,14 +5,14 @@
 
 int main(int argc, char** argv) {
 	if (argc != 2) {
-		std::cerr << "Error: input sequence is require as argument.\n";
+		std::cerr << "Error: expression is required as argument\n";
 		return 1;
 	}
 	try {
 		RPN rpn{};
-		rpn.calculate(argv[1]);
+		std::cout << rpn.evaluate(argv[1]) << '\n';
 	} catch (const std::exception& e) {
-		std::cerr << e.what() << '\n';
+		std::cerr << "Error: " << e.what() << '\n';
 	}
 	return 0;
 }

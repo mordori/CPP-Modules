@@ -1,11 +1,13 @@
 #pragma once
 
 #include <stack>
-#include <string_view>
+#include <string>
 
 class RPN {
 private:
 	std::stack<int> _stack;
+
+	void calculate(char op);
 
 public:
 	RPN() = default;
@@ -14,5 +16,5 @@ public:
 	RPN(const RPN& other) = delete;
 	RPN& operator=(const RPN& other) = delete;
 
-	int calculate(std::string_view sequence);
+	int evaluate(const std::string& expression);
 };

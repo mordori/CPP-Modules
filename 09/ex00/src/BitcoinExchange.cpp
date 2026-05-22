@@ -127,8 +127,8 @@ void BitcoinExchange::processInput(const std::string& input) const {
 			return;
 		}
 		auto it = _database.lower_bound(data->first);
-		if (it == _database.end() || it->first != data->first) {
-			if (it == _database.begin()) {
+		if (it == _database.cend() || it->first != data->first) {
+			if (it == _database.cbegin()) {
 				std::cerr << "Error: data is older than database.\n";
 				return;
 			}

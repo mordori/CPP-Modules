@@ -32,8 +32,8 @@ BraceWrapping:
     AfterUnion: false
     BeforeCatch: false
     BeforeElse: false
-    SplitEmptyFunction: false
-    SplitEmptyRecord: false
+    SplitEmptyFunction: true
+    SplitEmptyRecord: true
 ColumnLimit: 120
 BreakStringLiterals: false
 ReflowComments: false
@@ -53,3 +53,4 @@ AllowShortBlocksOnASingleLine: Empty
 AllowShortIfStatementsOnASingleLine: Never
 AllowShortLoopsOnASingleLine: false
 AllowShortLambdasOnASingleLine: Empty
+AllowShortCaseLabelsOnASingleLine: true
