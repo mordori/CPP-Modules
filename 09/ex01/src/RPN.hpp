@@ -12,7 +12,6 @@ private:
 public:
 	RPN() = default;
 	~RPN() = default;
-
 	RPN(const RPN& other) = delete;
 	RPN& operator=(const RPN& other) = delete;
 

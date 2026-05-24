@@ -24,7 +24,7 @@ template <std::ranges::range Range>
 void printContents(const Range& r) {
 	if (std::ranges::empty(r))
 		return;
-	auto it = std::ranges::cbegin(r);
+	auto it{ std::ranges::cbegin(r) };
 	std::cout << *it;
 	++it;
 	for (; it != std::ranges::cend(r); ++it)
