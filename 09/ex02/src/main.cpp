@@ -16,7 +16,8 @@ template <typename T>
 concept Printable = requires(std::ostream& os, const T& obj) { os << obj; };
 
 void printContainerTime(UIntRange auto& r, std::string_view type, double time) {
-	std::cout << "Time to process a range of " << r.size() << " elements with " << type << " :\t " << time << " us\n";
+	std::cout << "Time to process a range of " << std::ranges::size(r) << " elements with " << type << " :\t " << time
+			  << " us\n";
 }
 
 template <std::ranges::range Range>
