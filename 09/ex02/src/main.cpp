@@ -39,7 +39,7 @@ int main(int argc, const char** argv) {
 		return 1;
 	}
 	try {
-		auto args{ std::span<const char*>(argv, static_cast<std::size_t>(argc)).subspan(1) };
+		auto args{ std::span<const char*>{ argv, static_cast<std::size_t>(argc) }.subspan(1) };
 		PmergeMe sorter{ args };
 		std::vector<unsigned int> vector_;
 		std::list<unsigned int> list_;

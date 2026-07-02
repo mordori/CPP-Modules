@@ -6,7 +6,6 @@
 #include <cmath>
 #include <concepts>
 #include <cstddef>
-#include <iostream>
 #include <iterator>
 #include <ranges>
 #include <ratio>
@@ -27,13 +26,15 @@ public:
 	PmergeMe(const PmergeMe& other) = delete;
 	PmergeMe& operator=(const PmergeMe& other) = delete;
 
-	[[nodiscard]] const std::vector<unsigned int>& getUnsortedSequence() const;
+	[[nodiscard]] const std::vector<unsigned int>& getUnsortedSequence() const noexcept;
 
 	double run(UIntRange auto& r) {
-		auto startTime{ std::chrono::steady_clock::now() };
 		r.assign(_data.cbegin(), _data.cend());
+
+		auto startTime{ std::chrono::steady_clock::now() };
 		sort(r, 1);
 		auto endTime{ std::chrono::steady_clock::now() };
+
 		std::chrono::duration<double, std::micro> sortTime{ endTime - startTime };
 		assert(std::ranges::is_sorted(r) && "container is not sorted");
 		return sortTime.count();
@@ -43,6 +44,7 @@ public:
 		auto chunk2 = chunk * 2;
 		if (chunk2 > std::ranges::size(r))
 			return;
+
 		auto it{ std::ranges::begin(r) };
 		std::size_t remaining{ std::ranges::size(r) };
 		while (remaining >= chunk2) {
@@ -55,6 +57,7 @@ public:
 			remaining -= chunk2;
 		}
 		sort(r, chunk2);
+
 		using It = decltype(std::ranges::begin(r));
 		std::vector<It> main;
 		std::vector<It> pend;
@@ -67,6 +70,7 @@ public:
 		auto chunk2 = chunk * 2;
 		auto it{ std::ranges::begin(r) };
 		std::size_t remaining{ std::ranges::size(r) };
+
 		if (remaining >= chunk2) {
 			auto b{ it };
 			auto a{ std::next(it, static_cast<long>(chunk)) };
@@ -75,6 +79,7 @@ public:
 			std::advance(it, chunk2);
 			remaining -= chunk2;
 		}
+
 		while (remaining >= chunk2) {
 			auto b{ it };
 			auto a{ std::next(it, static_cast<long>(chunk)) };
@@ -83,29 +88,34 @@ public:
 			std::advance(it, chunk2);
 			remaining -= chunk2;
 		}
+
 		if (remaining >= chunk)
 			pend.push_back(it);
 	}
 
 	void jacobsthal(UIntRange auto& r, auto& main, auto& pend, std::size_t chunk) {
 		using It = decltype(std::ranges::begin(r));
+
 		if (pend.empty())
 			return;
+
 		std::size_t prev_jacob{ 1 };
 		std::size_t curr_jacob{ 3 };
 		std::size_t added{};
+
 		while (true) {
 			std::size_t start{ curr_jacob - 2 };
 			if (start >= pend.size())
 				start = pend.size() - 1;
 			std::size_t end{ prev_jacob - 1 };
+
 			for (std::size_t i{ start };; --i) {
 				auto it_loser{ pend[i] };
-				auto comp{ [chunk](It lhs, It rhs) {
+				auto comp = [chunk](It lhs, It rhs) {
 					auto val_lhs{ std::next(lhs, static_cast<long>(chunk - 1)) };
 					auto val_rhs{ std::next(rhs, static_cast<long>(chunk - 1)) };
 					return *val_lhs < *val_rhs;
-				} };
+				};
 				std::size_t bound = i + 2 + added;
 				if (bound > main.size())
 					bound = main.size();
@@ -117,6 +127,7 @@ public:
 					break;
 				}
 			}
+
 			if (start == pend.size() - 1)
 				break;
 			std::size_t next_jacob{ curr_jacob + (2 * prev_jacob) };
@@ -127,6 +138,7 @@ public:
 
 	void reassemble(UIntRange auto& r, auto& main, std::size_t chunk) {
 		using It = decltype(std::ranges::begin(r));
+
 		std::vector<unsigned int> temp;
 		temp.reserve(std::ranges::size(r));
 		for (It it_main : main) {

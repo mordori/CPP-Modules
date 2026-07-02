@@ -22,6 +22,6 @@ PmergeMe::PmergeMe(const std::span<const char*>& args) {
 	}
 }
 
-const std::vector<unsigned int>& PmergeMe::getUnsortedSequence() const {
+const std::vector<unsigned int>& PmergeMe::getUnsortedSequence() const noexcept {
 	return _data;
 }
