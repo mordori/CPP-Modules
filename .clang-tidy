@@ -19,6 +19,8 @@ Checks: >
   -readability-identifier-length,
   -readability-implicit-bool-conversion,
   -readability-uppercase-literal-suffix,
+  -readability-isolate-declaration,
+  -bugprone-suspicious-stringview-data-usage,
 
 # FORCE clang-tidy to report warnings found in header files
 HeaderFilterRegex: '.*\.hpp$'
