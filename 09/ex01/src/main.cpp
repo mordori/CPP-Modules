@@ -9,8 +9,7 @@ int main(int argc, char** argv) {
 		return 1;
 	}
 	try {
-		RPN rpn{};
-		std::cout << rpn.evaluate(argv[1]) << '\n';
+		std::cout << RPN{}.evaluate(argv[1]) << '\n';
 	} catch (const std::exception& e) {
 		std::cerr << "Error: " << e.what() << '\n';
 	}

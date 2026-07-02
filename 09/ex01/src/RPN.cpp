@@ -12,8 +12,10 @@
 namespace {
 constexpr bool isOperator(std::string_view token) noexcept {
 	constexpr std::string_view operators = "+-*/";
+	
 	if (token.size() != 1)
 		return false;
+
 	return operators.find(token.front()) != std::string_view::npos;
 }
 }
@@ -21,11 +23,13 @@ constexpr bool isOperator(std::string_view token) noexcept {
 void RPN::calculate(char op) {
 	if (_stack.size() < 2)
 		throw std::runtime_error{ "not enough operands" };
+
 	long right{ _stack.top() };
 	_stack.pop();
 	long left{ _stack.top() };
 	_stack.pop();
 	long result{};
+
 	switch (op) {
 		case '+': result = left + right; break;
 		case '-': result = left - right; break;
@@ -37,14 +41,17 @@ void RPN::calculate(char op) {
 			break;
 		default: assert(false && "unreachable");
 	}
+
 	if (result < std::numeric_limits<int>::min() || result > std::numeric_limits<int>::max())
 		throw std::length_error{ "expression surpasses int limits" };
+
 	_stack.push(static_cast<int>(result));
 }
 
 int RPN::evaluate(const std::string& expression) {
 	std::istringstream iss{ expression };
 	std::string s;
+
 	while (iss >> s) {
 		std::string_view sv{ s };
 		if (isOperator(sv))
@@ -59,7 +66,9 @@ int RPN::evaluate(const std::string& expression) {
 			_stack.push(number);
 		}
 	}
+
 	if (_stack.size() != 1)
 		throw std::runtime_error{ "invalid token '" + s + "'" };
+
 	return _stack.top();
 }

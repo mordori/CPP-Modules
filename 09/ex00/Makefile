@@ -20,7 +20,6 @@ endif
 
 DIR_INC		:=inc/
 DIR_SRC		:=src/
-DIR_LIB		:=lib/
 DIR_OBJ		:=obj/
 DIR_DEP		:=dep/
 DIR_UTILS	:=utils/
@@ -39,26 +38,35 @@ GREEN		:=\033[1;32m
 RED			:=\033[1;31m
 COLOR		:=\033[0m
 
-
 all: $(NAME)
+
+compdb:
+	@if command -v bear >/dev/null 2>&1; then \
+		bear --append -- $(MAKE) all; \
+	elif command -v compiledb >/dev/null 2>&1; then \
+		compiledb $(MAKE) all; \
+	else \
+		$(MAKE) all; \
+	fi
 
 $(NAME): $(OBJS)
 	@$(CXX) $(CXXFLAGS) -o $@ $(OBJS) $(LDFLAGS)
-	$(call output)
+	@$(call output)
 
 $(DIR_OBJ)%.o: $(DIR_SRC)%.cpp
-	$(call compile_objs)
+	@$(call compile_objs)
 
 $(DIR_OBJ)%.o: $(DIR_UTILS)%.cpp
-	$(call compile_objs)
+	@$(call compile_objs)
 
 clean:
-	$(call rm_dir,$(DIR_OBJ))
+	@$(call rm_dir,$(DIR_OBJ))
+	@$(call rm_dir,.cache/)
 
 fclean: clean
-	$(call rm_dir,$(DIR_LIB))
-	$(call rm_dir,$(DIR_DEP))
-	$(call rm_file,$(NAME))
+	@$(call rm_dir,$(DIR_DEP))
+	@$(call rm_file,$(NAME))
+	@$(call rm_file,compile_commands.json)
 
 re:
 	@$(MAKE) fclean
@@ -66,9 +74,13 @@ re:
 
 debug:
 	@$(MAKE) fclean
-	@$(MAKE) all OPTS="$(DEBUG)"
+	@$(MAKE) all OPTS="$(DEBUG)" BUILD_TYPE="DEBUG"
 
-.PHONY: all clean fclean re debug
+debugdb:
+	@$(MAKE) fclean
+	@$(MAKE) compdb OPTS="$(DEBUG)" BUILD_TYPE="DEBUG"
+
+.PHONY: all clean fclean re debug compdb debugdb
 .SECONDARY: $(OBJS) $(DEPS)
 
 -include $(DEPS)
@@ -94,6 +106,9 @@ define rm_file
 endef
 
 define output
-	@echo "$(YELLOW) [✔] $(NAME) created$(COLOR)"
-	@echo "$(GREEN) [/] usage: $(YELLOW)./$(NAME)$(COLOR)";
+	echo "$(YELLOW) [✔] $(NAME) created$(COLOR)"
+	echo "$(GREEN) [/] usage: $(YELLOW)./$(NAME) 'assets/scenes/scene_name.rt$(COLOR)'"; \
+	if [ "$(BUILD_TYPE)" = "DEBUG" ]; then \
+		echo "$(YELLOW) [DEBUG]$(COLOR)"; \
+	fi;
 endef
