@@ -12,7 +12,7 @@
 namespace {
 constexpr bool isOperator(std::string_view token) noexcept {
 	constexpr std::string_view operators = "+-*/";
-	
+
 	if (token.size() != 1)
 		return false;
 
@@ -68,7 +68,7 @@ int RPN::evaluate(const std::string& expression) {
 	}
 
 	if (_stack.size() != 1)
-		throw std::runtime_error{ "invalid token '" + s + "'" };
+		throw std::runtime_error{ "not enough operators" };
 
 	return _stack.top();
 }
