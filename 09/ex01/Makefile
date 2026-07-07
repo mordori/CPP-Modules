@@ -107,7 +107,7 @@ endef
 
 define output
 	echo "$(YELLOW) [✔] $(NAME) created$(COLOR)"
-	echo "$(GREEN) [/] usage: $(YELLOW)./$(NAME) 'assets/scenes/scene_name.rt$(COLOR)'"; \
+	echo "$(GREEN) [/] usage: $(YELLOW)./$(NAME) <sequence> e.g. \"1 1 + 2 *\"$(COLOR)"; \
 	if [ "$(BUILD_TYPE)" = "DEBUG" ]; then \
 		echo "$(YELLOW) [DEBUG]$(COLOR)"; \
 	fi;

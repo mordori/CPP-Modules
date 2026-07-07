@@ -41,14 +41,18 @@ int main(int argc, const char** argv) {
 	try {
 		auto args{ std::span<const char*>{ argv, static_cast<std::size_t>(argc) }.subspan(1) };
 		PmergeMe sorter{ args };
+
 		std::vector<unsigned int> vector_;
 		std::list<unsigned int> list_;
+
 		double timeVector{ sorter.run(vector_) };
 		double timeList{ sorter.run(list_) };
+
 		std::cout << "Before:\t  ";
 		printContents(sorter.getUnsortedSequence());
 		std::cout << "After:\t  ";
 		printContents(vector_);
+
 		OUTPUT(vector_, "std::vector<unsigned int>", timeVector);
 		OUTPUT(list_, "std::list<unsigned int>  ", timeList);
 	} catch (const std::exception& e) {
